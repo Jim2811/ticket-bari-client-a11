@@ -1,11 +1,13 @@
-import React from 'react';
+import React from "react";
 
+import { Link } from "react-router";
+import Banner from "../Components/Banner/Banner";
 const Home = () => {
-    return (
-        <div className='min-h-screen bg-red-500 w-full'>
-            HOme
-        </div>
-    );
+  return (
+    <>
+      <Banner></Banner>
+    </>
+  );
 };
 
 export default Home;
