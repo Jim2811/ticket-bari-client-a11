@@ -7,8 +7,7 @@ const Navbar = () => {
     <header className="sticky top-0 left-0 right-0 z-50">
       <div
         className="navbar backdrop-blur-md 
-      bg-white/30 dark:bg-black/30 
-      border-b border-white/20 dark:border-white/10  shadow-md flex justify-between"
+      bg-white/30 dark:bg-black/30 flex justify-between"
       >
         <div className="navbar-start flex">
           <div className="dropdown">
