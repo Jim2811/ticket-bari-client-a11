@@ -2,7 +2,11 @@ import React from "react";
 import { FaBars } from "react-icons/fa6";
 import { Link } from "react-router";
 import TicketBari from "../../assets/ticketBari.png";
+import useAuth from "../../Hooks/useAuth";
+import LogoutAndProfile from "../LogoutAndProfile/LogoutAndProfile";
 const Navbar = () => {
+  const { user} = useAuth();
+
   return (
     <header className="sticky top-0 left-0 right-0 z-50">
       <div
@@ -48,9 +52,13 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link to="/" className="btn btn-primary hover:btn-accent">
-            Login/Register
-          </Link>
+          {user ? (
+            <LogoutAndProfile></LogoutAndProfile>
+          ) : (
+            <Link to="/login" className="btn btn-primary hover:btn-accent">
+              Login/Register
+            </Link>
+          )}
         </div>
       </div>
     </header>

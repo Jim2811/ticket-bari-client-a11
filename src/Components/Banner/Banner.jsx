@@ -53,7 +53,7 @@ const Banner = () => {
                 </p>
                 <Link
                   href="/tickets"
-                  className="mt-6 btn btn-primary transition"
+                  className="mt-6 btn btn-primary"
                 >
                   Get Started
                 </Link>
