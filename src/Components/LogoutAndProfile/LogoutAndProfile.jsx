@@ -33,7 +33,6 @@ const LogoutAndProfile = () => {
             </div>
             <Link
               className="btn btn-primary mt-3 w-full hover:bg-white hover:border-red-600 hover:text-black"
-              to={"/my-profile"}
             >
               My Profile
             </Link>
