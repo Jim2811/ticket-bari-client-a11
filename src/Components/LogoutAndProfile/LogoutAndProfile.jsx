@@ -2,7 +2,11 @@ import { Link } from "react-router";
 import ProfilePic from "../../assets/default-profile.png";
 import useAuth from "../../Hooks/useAuth";
 const LogoutAndProfile = () => {
-  const { user} = useAuth();
+  const { user, logout} = useAuth();
+  const handleLogout = () =>{
+    logout()
+    .then(()=> alert('Logged Out'))
+  }
   return (
     <>
       <div className="flex items-center gap-2">
@@ -35,6 +39,7 @@ const LogoutAndProfile = () => {
             </Link>
             <button
               className="btn btn-primary mt-3 bg-red-600 w-full hover:bg-white hover:border-red-600 hover:text-black"
+              onClick={handleLogout}
             >
               Logout
             </button>

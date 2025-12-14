@@ -15,7 +15,7 @@ const GoogleSignIn = () => {
       <h2 className="text-center font-bold text-xl py-2">Or</h2>
       <button className="btn bg-white text-black border-[#e5e5e5]" onClick={handleClick}>
         <img src={Google} alt="" />
-        Login with Google
+        Authenticate with Google
       </button>
     </div>
   );

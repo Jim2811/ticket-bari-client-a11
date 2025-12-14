@@ -9,7 +9,7 @@ const Login = () => {
       <div className="h-full mt-5 flex justify-center py-20 items-center flex-col">
         <form>
           <fieldset className="fieldset bg-base-100 border-base-300 rounded-box w-xs border p-4">
-            <h1 className="text-center font-bold text-3xl md:text-5xl text-primary">Login to TicketBari</h1>
+            <h1 className="text-center font-bold text-3xl md:text-5xl text-primary pb-2">Login <br /> to <br /> TicketBari</h1>
 
             <label className="label">Email</label>
             <input
