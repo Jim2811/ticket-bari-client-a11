@@ -7,6 +7,7 @@ import Spinner from "../Components/Spinner/Spinner";
 import AdvertisedTickets from "../Components/AdvertisedTickets/AdvertisedTickets";
 import LatestTickets from "../Components/LatestTickets/LatestTickets";
 import WhyChooseUs from "../Components/WhyChooseUs/WhyChooseUs";
+import Partners from "../Components/Partners/Partners";
 const Home = () => {
   const {userLoading} = useAuth()
   if(userLoading){
@@ -18,6 +19,7 @@ const Home = () => {
       <AdvertisedTickets></AdvertisedTickets>
       <LatestTickets></LatestTickets>
       <WhyChooseUs></WhyChooseUs>
+      <Partners></Partners>
     </>
   );
 };

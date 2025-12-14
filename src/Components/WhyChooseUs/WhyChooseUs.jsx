@@ -6,7 +6,7 @@ import { MdElectricBolt } from "react-icons/md";
 const WhyChooseUs = () => {
   return (
     <div>
-      <section className="py-12 bg-secondary">
+      <section className="py-12 my-3 bg-secondary">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center text-primary mb-10">
             Why Choose TicketBari?
