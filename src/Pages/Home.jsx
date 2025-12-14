@@ -6,6 +6,7 @@ import useAuth from "../Hooks/useAuth";
 import Spinner from "../Components/Spinner/Spinner";
 import AdvertisedTickets from "../Components/AdvertisedTickets/AdvertisedTickets";
 import LatestTickets from "../Components/LatestTickets/LatestTickets";
+import WhyChooseUs from "../Components/WhyChooseUs/WhyChooseUs";
 const Home = () => {
   const {userLoading} = useAuth()
   if(userLoading){
@@ -16,6 +17,7 @@ const Home = () => {
       <Banner></Banner>
       <AdvertisedTickets></AdvertisedTickets>
       <LatestTickets></LatestTickets>
+      <WhyChooseUs></WhyChooseUs>
     </>
   );
 };
