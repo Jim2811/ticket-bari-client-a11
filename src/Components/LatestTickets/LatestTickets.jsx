@@ -1,80 +1,36 @@
 import React from "react";
-
+import useAxios from "../../Hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
+import LatestTicketsCard from "./LatestTicketsCard";
 const LatestTickets = () => {
-  const latestTickets = [
-    {
-      id: 1,
-      route: "Dhaka → Rajshahi",
-      price: 500,
-      type: "Bus",
-      image: "/bus.png",
+  const axiosInstance = useAxios();
+  const { data: latestTickets = [] } = useQuery({
+    queryKey: ["latestTickets"],
+    queryFn: async () => {
+      const res = await axiosInstance.get("/tickets/latest-tickets");
+      return res.data;
     },
-    {
-      id: 2,
-      route: "Dhaka → Khulna",
-      price: 650,
-      type: "Train",
-      image: "/train.png",
-    },
-    {
-      id: 3,
-      route: "Dhaka → Sylhet",
-      price: 1200,
-      type: "Flight",
-      image: "/plane.png",
-    },
-    {
-      id: 4,
-      route: "Dhaka → Barisal",
-      price: 450,
-      type: "Bus",
-      image: "/bus.png",
-    },
-    {
-      id: 5,
-      route: "Dhaka → Rangpur",
-      price: 700,
-      type: "Train",
-      image: "/train.png",
-    },
-    {
-      id: 6,
-      route: "Dhaka → Cox’s Bazar",
-      price: 1500,
-      type: "Flight",
-      image: "/plane.png",
-    },
-  ];
+  });
   return (
     <div>
       <section className="py-10">
         <h2 className="md:text-4xl text-3xl font-bold text-center text-[#16A34A] mb-8">
           Latest Tickets
         </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6">
-          {latestTickets.map((ticket) => (
-            <div key={ticket.id} className="card bg-white shadow-md">
-              <figure>
-                <img
-                  src={ticket.image}
-                  alt={ticket.route}
-                  className="h-48 w-full object-cover"
-                />
-              </figure>
-              <div className="card-body">
-                <h3 className="text-xl font-semibold">{ticket.route}</h3>
-                <p className="text-gray-600">Type: {ticket.type}</p>
-                <p className="text-[#16A34A] font-bold">৳ {ticket.price}</p>
-                <div className="card-actions justify-end">
-                  <button className="btn bg-[#16A34A] text-white hover:bg-[#15803D]">
-                    Book Now
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        {latestTickets.length == 0 ? (
+          <h3 className="text-red-600 font-bold py-3.5 text-center text-2xl">
+            We didn't find any tickets!!!
+          </h3>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6">
+            {latestTickets.map((ticket) => (
+              <LatestTicketsCard
+                key={ticket?._id}
+                ticket={ticket}
+              ></LatestTicketsCard>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
