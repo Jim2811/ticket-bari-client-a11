@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/useAxios";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const TicketDetails = () => {
   const { id } = useParams();
@@ -38,7 +39,47 @@ const TicketDetails = () => {
         seconds: Math.floor((difference / 1000) % 60),
       });
     }, 1000);
-  }, [ticket.departureDateTime]);
+  }, [ticket?.departureDateTime]);
+
+  const handleBookNow = async () => {
+    const { value: quantity } = await Swal.fire({
+      title: "Book Ticket",
+      input: "number",
+      inputLabel: "Enter ticket quantity",
+      inputAttributes: {
+        min: 1,
+        max: ticket.quantity,
+      },
+      inputValue: 1,
+      showCancelButton: true,
+      confirmButtonText: "Confirm Booking",
+      cancelButtonText: "Cancel",
+      inputValidator: (value) => {
+        if (!value || value <= 0) {
+          return "Quantity must be at least 1";
+        }
+        if (value > ticket.quantity) {
+          return "Quantity exceeds available tickets";
+        }
+      },
+    });
+
+    if (!quantity) return;
+
+    try {
+      Swal.fire({
+        icon: "success",
+        title: "Booking Successful",
+        text: "Your booking is now pending",
+      });
+    } catch {
+      Swal.fire({
+        icon: "error",
+        title: "Booking Failed",
+        text: "Something went wrong",
+      });
+    }
+  };
 
   if (isLoading) {
     return (
@@ -165,7 +206,8 @@ const TicketDetails = () => {
                 <div className="card-actions mt-5">
                   <button
                     className={`btn btn-primary w-full`}
-                    disabled={timeLeft==0}
+                    disabled={timeLeft == 0}
+                    onClick={handleBookNow}
                   >
                     Book Now
                   </button>
