@@ -9,11 +9,9 @@ const AuthProvider = ({children}) => {
     useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setUserLoading(false);
+      setUserLoading(false)
     });
-    return () => {
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
     const googleProvider = new GoogleAuthProvider();
 

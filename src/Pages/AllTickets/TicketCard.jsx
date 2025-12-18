@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
-const LatestTicketsCard = ({ticket}) => {
+const TicketCard = ({ ticket }) => {
   return (
     <>
       <div key={ticket._id} className="card bg-base-100 shadow-xl">
@@ -14,8 +14,14 @@ const LatestTicketsCard = ({ticket}) => {
 
         <div className="card-body">
           <h2 className="card-title line-clamp-1">{ticket.title}</h2>
-          <div className="badge badge-secondary text-black capitalize">
-            {ticket.transportType}
+
+          <div className="flex items-center justify-between text-sm">
+            <div className="badge badge-outline">
+              {ticket.from} → {ticket.to}
+            </div>
+            <div className="badge badge-secondary text-black capitalize">
+              {ticket.transportType}
+            </div>
           </div>
 
           <div className="mt-2 flex items-end justify-between">
@@ -39,6 +45,11 @@ const LatestTicketsCard = ({ticket}) => {
             ))}
           </div>
 
+          <div className="pt-2 text-sm text-base-content/70">
+            <span className="font-medium">Departure:</span>{" "}
+            {ticket.departureDateTime}
+          </div>
+
           <div className="card-actions justify-end pt-3">
             <Link to={`/tickets/${ticket._id}`} className="btn btn-primary">
               See details
@@ -50,4 +61,4 @@ const LatestTicketsCard = ({ticket}) => {
   );
 };
 
-export default LatestTicketsCard;
+export default TicketCard;

@@ -1,43 +1,38 @@
 import React from "react";
-
-const AdvertisedTicketsCard = ({ticket}) => {
+import { Link } from "react-router";
+const AdvertisedTicketsCard = ({ ticket }) => {
   return (
     <>
-      <div  className="card bg-base-100 shadow-xl">
+      <div key={ticket._id} className="card bg-base-100 shadow-xl">
         <figure className="h-48">
           <img
-            src={ticket?.imageURL}
-            alt={ticket?.title}
+            src={ticket.imageURL}
+            alt={ticket.title}
             className="h-full w-full object-cover"
           />
         </figure>
 
         <div className="card-body">
-          <h2 className="card-title line-clamp-1">{ticket?.title}</h2>
+          <h2 className="card-title line-clamp-1">{ticket.title}</h2>
+          <div className="badge badge-secondary text-black capitalize">
+            {ticket.transportType}
+          </div>
 
-          <div className="space-y-1 text-sm">
-            <p>
-              <span className="font-semibold text-success">
-                ৳ {ticket?.pricePerUnit}
+          <div className="mt-2 flex items-end justify-between">
+            <p className="text-primary font-bold text-lg">
+              ৳ {ticket.pricePerUnit}
+              <span className="text-sm font-medium text-base-content/60">
+                {" "}
+                /unit
               </span>
-              <span className="text-base-content/60"> / unit</span>
             </p>
-
-            <p className="text-base-content/70">
-              Quantity:{" "}
-              <span className="font-semibold">{ticket?.quantity}</span>
-            </p>
-
-            <p className="text-base-content/70">
-              Transport:{" "}
-              <span className="capitalize font-semibold">
-                {ticket?.transportType}
-              </span>
+            <p className="text-sm text-base-content/70">
+              Qty: <span className="font-semibold">{ticket.quantity}</span>
             </p>
           </div>
 
           <div className="flex flex-wrap gap-2 pt-2">
-            {(ticket?.perks || []).map((perk, idx) => (
+            {ticket.perks.slice(0, 4).map((perk, idx) => (
               <span key={idx} className="badge badge-outline">
                 {perk}
               </span>
@@ -45,7 +40,9 @@ const AdvertisedTicketsCard = ({ticket}) => {
           </div>
 
           <div className="card-actions justify-end pt-3">
-            <button className="btn btn-primary">See details</button>
+            <Link to={`/tickets/${ticket._id}`} className="btn btn-primary">
+              See details
+            </Link>
           </div>
         </div>
       </div>
