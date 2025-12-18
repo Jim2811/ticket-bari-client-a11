@@ -213,7 +213,7 @@ const TicketDetails = () => {
                 <div className="card-actions mt-5">
                   <button
                     className={`btn btn-primary w-full`}
-                    disabled={timeLeft == 0}
+                    disabled={timeLeft == 0 || ticket.quantity == 0}
                     onClick={handleBookNow}
                   >
                     Book Now
