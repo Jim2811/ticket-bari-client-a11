@@ -1,10 +1,12 @@
 import { Link, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/useAxios";
+import { useEffect, useState } from "react";
 
 const TicketDetails = () => {
   const { id } = useParams();
   const axiosInstance = useAxios();
+  const [timeLeft, setTimeLeft] = useState();
   const {
     data: ticket,
     isLoading,
@@ -17,6 +19,26 @@ const TicketDetails = () => {
       return rest.data;
     },
   });
+
+  useEffect(() => {
+    if (!ticket || !ticket.departureDateTime) return;
+    const departureTime = new Date(ticket?.departureDateTime).getTime();
+    const interval = setInterval(() => {
+      const now = Date.now();
+      const difference = departureTime - now;
+      if (difference <= 0) {
+        setTimeLeft(0);
+        clearInterval(interval);
+        return;
+      }
+      setTimeLeft({
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / (1000 * 60)) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      });
+    }, 1000);
+  }, [ticket.departureDateTime]);
 
   if (isLoading) {
     return (
@@ -125,14 +147,28 @@ const TicketDetails = () => {
                 <h2 className="card-title">Book This Ticket</h2>
 
                 <div className="p-4 rounded-lg bg-base-200">
-                  <p className="text-xl font-bold">00:00:00</p>
+                  {timeLeft ? (
+                    <p className="text-xl font-extrabold text-primary">
+                      {timeLeft.days}D {timeLeft.hours}H {timeLeft.minutes}M{" "}
+                      {timeLeft.seconds}S
+                    </p>
+                  ) : (
+                    <p className="text-xl font-extrabold text-red-500">
+                      00D 00H 00M 00S
+                    </p>
+                  )}
                   <p className="text-sm text-base-content/70">
                     Left for departure
                   </p>
                 </div>
 
                 <div className="card-actions mt-5">
-                  <button className="btn btn-primary w-full">Book Now</button>
+                  <button
+                    className={`btn btn-primary w-full`}
+                    disabled={timeLeft==0}
+                  >
+                    Book Now
+                  </button>
                 </div>
 
                 <p className="text-xs text-base-content/60 mt-2"></p>
