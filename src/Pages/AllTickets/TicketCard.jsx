@@ -51,7 +51,7 @@ const TicketCard = ({ ticket }) => {
           </div>
 
           <div className="card-actions justify-end pt-3">
-            <Link to={`/tickets/${ticket._id}`} className="btn btn-primary">
+            <Link to={`/ticket-detail/${ticket._id}`} className="btn btn-primary">
               See details
             </Link>
           </div>

@@ -3,8 +3,9 @@ import MainLayout from "../Layout/MainLayout";
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
-import PrivateRoute from './Private Route/PrivateRoute';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 import AllTickets from "../Pages/AllTickets/AllTickets";
+import TicketDetails from "../Pages/TicketDetails/TicketDetails";
 
 const route = createBrowserRouter([
     {
@@ -28,7 +29,11 @@ const route = createBrowserRouter([
                 children: [
                     {
                         path: 'all-tickets',
-                        Component: AllTickets
+                        Component: AllTickets,
+                    },
+                    {
+                        path: '/ticket-detail/:id',
+                        Component: TicketDetails
                     }
                 ]
             }
