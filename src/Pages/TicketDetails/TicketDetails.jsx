@@ -3,11 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/useAxios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import useAuth from "../../Hooks/useAuth";
 
 const TicketDetails = () => {
   const { id } = useParams();
   const axiosInstance = useAxios();
   const [timeLeft, setTimeLeft] = useState();
+  const { user } = useAuth();
   const {
     data: ticket,
     isLoading,
@@ -67,6 +69,11 @@ const TicketDetails = () => {
     if (!quantity) return;
 
     try {
+      axiosInstance.post("/bookings", {
+        ticketId: ticket._id,
+        userEmail: user.email,
+        bookingQuantity: quantity,
+      });
       Swal.fire({
         icon: "success",
         title: "Booking Successful",
