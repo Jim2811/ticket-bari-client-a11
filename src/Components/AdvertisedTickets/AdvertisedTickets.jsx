@@ -16,9 +16,6 @@ const AdvertisedTickets = () => {
       <section className="py-10 bg-accent">
         <h2 className="md:text-4xl text-3xl font-bold text-center text-primary mb-8">
           Admins Choice
-          {
-            advertisedTickets.length
-          }
         </h2>
         {advertisedTickets.length == 0 ? (
           <h3 className="text-red-600 font-bold py-3.5 text-center text-2xl">

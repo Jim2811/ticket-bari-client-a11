@@ -8,6 +8,7 @@ import AllTickets from "../Pages/AllTickets/AllTickets";
 import TicketDetails from "../Pages/TicketDetails/TicketDetails";
 import DashBoard from "../Layout/DashBoard";
 import MyBookedTickets from "../Pages/TicketDetails/Dashboard/User/MyBookedTickets";
+
 const route = createBrowserRouter([
     {
         path: "/",
