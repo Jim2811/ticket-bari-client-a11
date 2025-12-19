@@ -8,6 +8,8 @@ import AllTickets from "../Pages/AllTickets/AllTickets";
 import TicketDetails from "../Pages/TicketDetails/TicketDetails";
 import DashBoard from "../Layout/DashBoard";
 import MyBookedTickets from "../Pages/TicketDetails/Dashboard/User/MyBookedTickets";
+import PaymentSuccess from "../Pages/TicketDetails/Dashboard/User/PaymentSuccess";
+import PaymentCancel from "../Pages/TicketDetails/Dashboard/User/PaymentCancel";
 
 const route = createBrowserRouter([
     {
@@ -51,6 +53,14 @@ const route = createBrowserRouter([
                     {
                         path: 'my-booked-tickets',
                         Component: MyBookedTickets
+                    },
+                    {
+                        path: 'payment-success',
+                        Component: PaymentSuccess
+                    },
+                    {
+                        path: 'payment-cancel',
+                        Component: PaymentCancel
                     }
                 ]
             }

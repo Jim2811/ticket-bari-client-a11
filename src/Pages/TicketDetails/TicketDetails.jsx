@@ -72,8 +72,10 @@ const TicketDetails = () => {
       axiosInstance.post("/bookings", {
         ticketId: ticket._id,
         userEmail: user.email,
+        paymentStatus: 'unpaid',
         status: 'pending',
         bookingQuantity: Number(quantity),
+        createdAt: new Date()
       });
       Swal.fire({
         icon: "success",

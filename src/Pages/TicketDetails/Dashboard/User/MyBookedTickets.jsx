@@ -51,12 +51,13 @@ const MyBookedTickets = () => {
   }, [bookings]);
 
   const handlePayNow = async (bookingId) => {
-    await axiosInstance.post("/create-checkout-session", {
-      bookingId
-    }).then(r => window.location.href= r.data.url)
-    .catch(er => console.log(er))
-
-  }
+    await axiosInstance
+      .post("/create-checkout-session", {
+        bookingId,
+      })
+      .then((r) => (window.location.href = r.data.url))
+      .catch((er) => console.log(er));
+  };
 
   if (isLoading) {
     return (
@@ -151,17 +152,17 @@ const MyBookedTickets = () => {
                   )}
                 </div>
                 <div className="card-actions justify-end mt-4">
-                  {b?.status === "pending" ? (
+                  {b?.paymentStatus === "unpaid" ? (
                     <button
                       className="btn btn-primary btn-sm"
                       onClick={() => handlePayNow(b._id)}
                     >
                       Pay Now
                     </button>
+                  ) : b?.paymentStatus === "paid" ? (
+                    <p className="text-primary font-bold">Paid</p>
                   ) : (
-                    <button className="btn btn-primary btn-sm" disabled>
-                      {b?.status === "paid" ? "Paid" : "Not Accepted"}
-                    </button>
+                    <p className="text-red-600 font-bold">Not Accepted</p>
                   )}
                 </div>
               </div>
