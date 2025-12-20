@@ -14,10 +14,13 @@ const UserProfile = () => {
       return res.data
     },
   });
-  const userOb = userData;
-  const userObj = userOb[0]
+
+  let userObj
   if(isLoading){
     return <Spinner></Spinner>
+  }
+  if(userData.length > 0){
+    userObj = userData[0]
   }
   return (
     <div className="min-h-screen bg-base-200 p-4">
@@ -44,7 +47,7 @@ const UserProfile = () => {
               <p className="text-sm opacity-70">{user?.email}</p>
               <p className="text-sm opacity-70">
                 <span className="font-bold">Creation Date: </span>
-                <span>{userObj?.createdAt}</span>
+                <span>{new Date(userObj?.createdAt).toLocaleString()}</span>
               </p>
 
               <div className="mt-3 flex gap-2">
