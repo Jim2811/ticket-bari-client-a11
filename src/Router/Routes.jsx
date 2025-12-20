@@ -13,6 +13,8 @@ import PaymentCancel from "../Pages/TicketDetails/Dashboard/User/PaymentCancel";
 import TransactionHistory from "../Pages/TicketDetails/Dashboard/User/TransactionHistory";
 import UserProfile from "../Pages/TicketDetails/Dashboard/User/UserProfile";
 import DashboardOverview from "../Pages/TicketDetails/Dashboard/DashboardOverview";
+import AddTicket from "../Pages/TicketDetails/Dashboard/Vendor/AddTicket";
+import MyAddedTickets from "../Pages/TicketDetails/Dashboard/Vendor/MyAddedTickets";
 const route = createBrowserRouter([
     {
         path: "/",
@@ -76,6 +78,14 @@ const route = createBrowserRouter([
           path: "profile",
           Component: UserProfile,
         },
+        {
+            path: "vendor/add-ticket",
+            Component: AddTicket
+        },
+        {
+            path: 'vendor/my-added-tickets',
+            Component: MyAddedTickets
+        }
       ],
     },
   ],
