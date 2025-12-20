@@ -24,9 +24,9 @@ const UserProfile = () => {
   }
   return (
     <div className="min-h-screen bg-base-200 p-4">
-      <h1 className="text-center text-3xl font-bold text-primary pt-3 pb-5 mb-7">
+      <h2 className="text-center text-3xl font-bold text-primary pt-3 pb-5 mb-7">
         User Information
-      </h1>
+      </h2>
       <div className="flex justify-center items-center">
         <div className="max-w-6xl md:max-w-6/12 mx-auto ">
           <div className="card bg-base-100 shadow-xl">

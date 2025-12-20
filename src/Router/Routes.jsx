@@ -12,7 +12,7 @@ import PaymentSuccess from "../Pages/TicketDetails/Dashboard/User/PaymentSuccess
 import PaymentCancel from "../Pages/TicketDetails/Dashboard/User/PaymentCancel";
 import TransactionHistory from "../Pages/TicketDetails/Dashboard/User/TransactionHistory";
 import UserProfile from "../Pages/TicketDetails/Dashboard/User/UserProfile";
-import DashboardOverview from "../Pages/TicketDetails/Dashboard/User/DashboardOverview";
+import DashboardOverview from "../Pages/TicketDetails/Dashboard/DashboardOverview";
 const route = createBrowserRouter([
     {
         path: "/",

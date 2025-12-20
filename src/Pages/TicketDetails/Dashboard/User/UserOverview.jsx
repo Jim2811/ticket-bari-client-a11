@@ -1,3 +1,4 @@
+import React from "react";
 import {
   BarChart,
   Bar,
@@ -10,10 +11,10 @@ import {
 } from "recharts";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hooks/useAuth";
-import useAxios from "../../../../Hooks/useAxios";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
-const DashboardOverview = () => {
-  const axiosInstance = useAxios();
+const UserOverview = () => {
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
   const {
@@ -24,7 +25,7 @@ const DashboardOverview = () => {
     queryKey: ["payments", user?.email],
     enabled: !!user?.email,
     queryFn: async () =>
-      (await axiosInstance.get(`/payment-success?email=${user.email}`)).data,
+      (await axiosSecure.get(`/payment-success?email=${user.email}`)).data,
   });
 
   if (isLoading) {
@@ -43,7 +44,6 @@ const DashboardOverview = () => {
     );
   }
 
-  // মাস অনুযায়ী টোটাল amount বের করা
   const monthlyTotals = payments.reduce((acc, payment) => {
     const date = new Date(payment.paidAt);
     const month = date.toLocaleString("default", {
@@ -61,7 +61,9 @@ const DashboardOverview = () => {
 
   return (
     <>
-      <h1 className="text-3xl text-primary font-bold pt-4 text-center mb-4">Payment Overview</h1>
+      <h2 className="text-3xl text-primary font-bold pt-4 text-center mb-4">
+        Payment Overview
+      </h2>
       <div className="card bg-base-100 shadow mt-8 p-4">
         <ResponsiveContainer width="100%" height={400}>
           <BarChart
@@ -90,5 +92,4 @@ const DashboardOverview = () => {
     </>
   );
 };
-
-export default DashboardOverview;
+export default UserOverview;

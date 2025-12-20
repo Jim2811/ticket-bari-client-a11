@@ -3,7 +3,7 @@ import { FaHistory, FaHome } from "react-icons/fa";
 import { IoTicketSharp } from "react-icons/io5";
 import { RiMenu3Line } from "react-icons/ri";
 import { NavLink, Outlet } from "react-router";
-import DashboardOverview from "./DashboardOverview";
+import DashboardOverview from "../DashboardOverview";
 
 const UserDashboard = () => {
   const activeClass = ({ isActive }) =>
@@ -18,9 +18,9 @@ const UserDashboard = () => {
           <label htmlFor="my-drawer-4" className="btn btn-square btn-ghost">
             <RiMenu3Line />
           </label>
-          <h1 className="px-4 text-xl font-bold text-primary">
-            TicketBari Dashboard
-          </h1>
+          <h2 className="px-4 text-xl font-bold text-primary">
+            TicketBari User Dashboard
+          </h2>
         </div>
 
         <div className="p-4">
