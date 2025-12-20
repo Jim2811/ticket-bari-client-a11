@@ -38,7 +38,7 @@ const TransactionHistory = () => {
                 <th>{index+1}</th>
                 <th>{p.title}</th>
                 <td>{p.amount}</td>
-                <td>{p.paidAt}</td>
+                <td>{new Date(p.paidAt).toLocaleString()}</td>
                 <td>{p.transactionId}</td>
               </tr>
             ))}

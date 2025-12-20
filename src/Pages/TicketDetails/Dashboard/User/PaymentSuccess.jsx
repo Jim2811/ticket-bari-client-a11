@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Spinner from "../../../../Components/Spinner/Spinner";
+import { GiCardKingClubs } from "react-icons/gi";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -14,11 +15,11 @@ const PaymentSuccess = () => {
       axiosSecure
         .patch(`/payment-success?session_id=${sessionId}`)
         .then((r) => {
-          setPaymentData(r.data.paymentResult); 
+          setPaymentData(r.data.paymentResult)
         });
     }
   }, [axiosSecure, sessionId]);
-
+  console.log(paymentData);
   return (
     <div className="flex justify-center items-center min-h-[80vh] bg-base-200 p-4">
       {paymentData ? (

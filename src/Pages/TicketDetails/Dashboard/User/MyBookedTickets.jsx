@@ -12,6 +12,7 @@ const MyBookedTickets = () => {
     data: bookings = [],
     isLoading,
     isError,
+    refetch,
   } = useQuery({
     queryKey: ["bookings", userEmail],
     queryFn: async () =>
@@ -19,6 +20,7 @@ const MyBookedTickets = () => {
   });
 
   useEffect(() => {
+    refetch()
     if (!bookings.length) return;
 
     const interval = setInterval(() => {
@@ -48,7 +50,7 @@ const MyBookedTickets = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [bookings]);
+  }, [bookings, refetch]);
 
   const handlePayNow = async (bookingId) => {
     await axiosInstance
@@ -131,7 +133,7 @@ const MyBookedTickets = () => {
                   <p>
                     Departure:{" "}
                     <span className="font-semibold">
-                      {b?.departureDateTime}
+                      {new Date(b?.departureDateTime).toLocaleString()}
                     </span>
                   </p>
                   {b?.status !== "rejected" && (
@@ -152,7 +154,7 @@ const MyBookedTickets = () => {
                   )}
                 </div>
                 <div className="card-actions justify-end mt-4">
-                  {b?.status === "approved" ? (
+                  {b?.status === "approved" && b?.paymentStatus === 'unpaid' ? (
                     <button
                       className="btn btn-primary btn-sm"
                       onClick={() => handlePayNow(b._id)}

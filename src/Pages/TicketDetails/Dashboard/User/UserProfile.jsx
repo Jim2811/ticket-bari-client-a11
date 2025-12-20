@@ -14,7 +14,8 @@ const UserProfile = () => {
       return res.data
     },
   });
-  const userObj = userData[0]
+  const userOb = userData;
+  const userObj = userOb[0]
   if(isLoading){
     return <Spinner></Spinner>
   }
