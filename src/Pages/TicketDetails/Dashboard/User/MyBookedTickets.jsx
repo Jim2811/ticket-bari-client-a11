@@ -152,7 +152,7 @@ const MyBookedTickets = () => {
                   )}
                 </div>
                 <div className="card-actions justify-end mt-4">
-                  {b?.status === "pending" ? (
+                  {b?.status === "approved" ? (
                     <button
                       className="btn btn-primary btn-sm"
                       onClick={() => handlePayNow(b._id)}
@@ -162,7 +162,7 @@ const MyBookedTickets = () => {
                   ) : b?.paymentStatus === "paid" ? (
                     <p className="text-primary font-bold">Paid</p>
                   ) : (
-                    <p className="text-red-600 font-bold">Not Accepted</p>
+                    <p className="text-red-600 font-bold">{b?.status}</p>
                   )}
                 </div>
               </div>

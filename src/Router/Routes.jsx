@@ -10,6 +10,7 @@ import DashBoard from "../Layout/DashBoard";
 import MyBookedTickets from "../Pages/TicketDetails/Dashboard/User/MyBookedTickets";
 import PaymentSuccess from "../Pages/TicketDetails/Dashboard/User/PaymentSuccess";
 import PaymentCancel from "../Pages/TicketDetails/Dashboard/User/PaymentCancel";
+import TransactionHistory from "../Pages/TicketDetails/Dashboard/User/TransactionHistory";
 
 const route = createBrowserRouter([
     {
@@ -61,6 +62,10 @@ const route = createBrowserRouter([
                     {
                         path: 'payment-cancel',
                         Component: PaymentCancel
+                    },
+                    {
+                        path: 'transaction-history',
+                        Component: TransactionHistory
                     }
                 ]
             }

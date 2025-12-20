@@ -59,7 +59,7 @@ const DashBoard = () => {
           </li>
 
           <li>
-            <NavLink to="/dashboard/history" className={activeClass}>
+            <NavLink to="/dashboard/transaction-history" className={activeClass}>
               <FaHistory />
               Transaction History
             </NavLink>
