@@ -12,6 +12,7 @@ import PaymentSuccess from "../Pages/TicketDetails/Dashboard/User/PaymentSuccess
 import PaymentCancel from "../Pages/TicketDetails/Dashboard/User/PaymentCancel";
 import TransactionHistory from "../Pages/TicketDetails/Dashboard/User/TransactionHistory";
 import UserProfile from "../Pages/TicketDetails/Dashboard/User/UserProfile";
+import DashboardOverview from "../Pages/TicketDetails/Dashboard/User/DashboardOverview";
 const route = createBrowserRouter([
     {
         path: "/",
@@ -45,37 +46,40 @@ const route = createBrowserRouter([
         ]
     },
     {
-        Component: PrivateRoute,
-        children: [
-            {
-                path: 'dashboard',
-                Component: DashBoard,
-                children: [
-                    {
-                        path: 'my-booked-tickets',
-                        Component: MyBookedTickets
-                    },
-                    {
-                        path: 'payment-success',
-                        Component: PaymentSuccess
-                    },
-                    {
-                        path: 'transaction-history',
-                        Component: TransactionHistory
-                    },
-                    {
-                        path: 'payment-cancel',
-                        Component: PaymentCancel
-                    },
-                    {
-                        path: 'profile',
-                        Component: UserProfile
-                    },
-                    
-                ]
-            }
-        ]
-    }
+  Component: PrivateRoute,
+  children: [
+    {
+      path: "dashboard",
+      Component: DashBoard,
+      children: [
+        {
+          index: true,
+          Component: DashboardOverview,
+        },
+        {
+          path: "my-booked-tickets",
+          Component: MyBookedTickets,
+        },
+        {
+          path: "payment-success",
+          Component: PaymentSuccess,
+        },
+        {
+          path: "transaction-history",
+          Component: TransactionHistory,
+        },
+        {
+          path: "payment-cancel",
+          Component: PaymentCancel,
+        },
+        {
+          path: "profile",
+          Component: UserProfile,
+        },
+      ],
+    },
+  ],
+}
 ])
 
 export default route;
