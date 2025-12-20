@@ -11,7 +11,7 @@ import MyBookedTickets from "../Pages/TicketDetails/Dashboard/User/MyBookedTicke
 import PaymentSuccess from "../Pages/TicketDetails/Dashboard/User/PaymentSuccess";
 import PaymentCancel from "../Pages/TicketDetails/Dashboard/User/PaymentCancel";
 import TransactionHistory from "../Pages/TicketDetails/Dashboard/User/TransactionHistory";
-
+import UserProfile from "../Pages/TicketDetails/Dashboard/User/UserProfile";
 const route = createBrowserRouter([
     {
         path: "/",
@@ -60,13 +60,18 @@ const route = createBrowserRouter([
                         Component: PaymentSuccess
                     },
                     {
+                        path: 'transaction-history',
+                        Component: TransactionHistory
+                    },
+                    {
                         path: 'payment-cancel',
                         Component: PaymentCancel
                     },
                     {
-                        path: 'transaction-history',
-                        Component: TransactionHistory
-                    }
+                        path: 'profile',
+                        Component: UserProfile
+                    },
+                    
                 ]
             }
         ]

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import Spinner from "../../../../Components/Spinner/Spinner";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -37,9 +38,7 @@ const PaymentSuccess = () => {
           </div>
         </div>
       ) : (
-        <h1 className="text-center font-bold text-3xl text-primary">
-          Loading Payment Info...
-        </h1>
+        <Spinner></Spinner>
       )}
     </div>
   );
