@@ -37,6 +37,7 @@ const Register = () => {
           email,
           role: "user",
           createdAt: new Date().toISOString(),
+          isFraud: false
         };
 
         axiosInstance.post("/users", userInfo).then(() => {

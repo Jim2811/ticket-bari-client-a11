@@ -14,13 +14,12 @@ const GoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
         const loggedUser = result.user;
-        console.log("Google User:", loggedUser);
-
         const userInfo = {
           name: loggedUser.displayName,
           email: loggedUser.email,
           role: "user",
           createdAt: new Date().toISOString(),
+          isFraud: false
         };
 
         axiosInstance
