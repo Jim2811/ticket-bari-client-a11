@@ -20,6 +20,7 @@ import VendorRequestedBookings from "../Pages/TicketDetails/Dashboard/Vendor/Ven
 import VendorRevenueOverview from "../Pages/TicketDetails/Dashboard/Vendor/VendorRevenueOverview";
 import UserOverview from "../Pages/TicketDetails/Dashboard/User/UserOverview";
 import ManageTikcets from "../Pages/TicketDetails/Dashboard/Admin/ManageTikcets";
+import ManageUsers from "../Pages/TicketDetails/Dashboard/Admin/ManageUsers";
 const route = createBrowserRouter([
   {
     path: "/",
@@ -106,6 +107,10 @@ const route = createBrowserRouter([
           {
             path: "admin/manage-tickets",
             Component: ManageTikcets
+          },
+          {
+            path: 'admin/manage-users',
+            Component: ManageUsers
           }
         ],
       },

@@ -55,14 +55,14 @@ const AdminDashboard = () => {
           </li>
 
           <li>
-            <NavLink to="/dashboard/manage-users" className={activeClass}>
+            <NavLink to="/dashboard/admin/manage-users" className={activeClass}>
               <FaUsersCog />
               Manage Users
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/dashboard/advertise-tickets" className={activeClass}>
+            <NavLink to="/dashboard/admin/advertise-tickets" className={activeClass}>
               <RiAdvertisementFill />
               Advertise Tickets
             </NavLink>
