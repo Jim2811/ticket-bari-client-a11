@@ -2,9 +2,12 @@ import React from "react";
 import Google from "../../assets/Google.svg";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 const GoogleSignIn = () => {
   const { googleSignIn } = useAuth();
-  const axiosInstance = useAxios()
+  const axiosInstance = useAxios();
+  const navigate = useNavigate()
   const handleClick = () => {
     googleSignIn()
       .then((result) => {
@@ -20,8 +23,15 @@ const GoogleSignIn = () => {
 
         axiosInstance
           .post("/users", userInfo)
-          .then((res) => {
-            console.log("User saved:", res.data);
+          .then(() => {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/")
           })
           .catch((err) => {
             console.error("Error saving user:", err);

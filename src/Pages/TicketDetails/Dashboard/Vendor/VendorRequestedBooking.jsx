@@ -2,22 +2,50 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import Spinner from "../../../../Components/Spinner/Spinner"
 
 const VendorRequestedBookings = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: bookings = [], isLoading } = useQuery({
+  const { data: bookings = [], isLoading, refetch } = useQuery({
     queryKey: ["vendorBookings", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/vendor/bookings?vendorEmail=${user.email}`);
+      const res = await axiosSecure.get(
+        `/vendor/bookings?vendorEmail=${user.email}`
+      );
       return res.data;
     },
   });
 
+  const handleStatus = (id, action) => {
+    Swal.fire({
+      title: `Are you sure to ${action} this booking?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: `Yes, ${action}`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/bookings/${id}/${action}`).then((res) => {
+          if (res.data.modifiedCount > 0) {
+            Swal.fire(
+              "Success!",
+              `Booking ${action}ed successfully`,
+              "success"
+            );
+            refetch();
+          }
+        });
+      }
+    });
+  };
+
   if (isLoading)
-    return <p className="text-center py-20 font-semibold">Loading bookings...</p>;
+    return (
+      <Spinner></Spinner>
+    );
 
   if (!bookings.length)
     return <p className="text-center py-20">No booking requests yet.</p>;
@@ -55,7 +83,7 @@ const VendorRequestedBookings = () => {
                     className={`badge ${
                       b.status === "pending"
                         ? "badge-warning"
-                        : b.status === "approved"
+                        : b.status === "accepted"
                         ? "badge-success"
                         : "badge-error"
                     }`}
@@ -64,10 +92,18 @@ const VendorRequestedBookings = () => {
                   </span>
                 </td>
                 <td className="space-x-2">
-                  <button className="btn btn-xs btn-success">
+                  <button
+                    onClick={() => handleStatus(b._id, "accept")}
+                    className="btn btn-xs btn-success"
+                    disabled={b.status !== "pending"}
+                  >
                     Accept
                   </button>
-                  <button className="btn btn-xs btn-error text-white" >
+                  <button
+                    onClick={() => handleStatus(b._id, "reject")}
+                    className="btn btn-xs btn-error text-white"
+                    disabled={b.status !== "pending"}
+                  >
                     Reject
                   </button>
                 </td>

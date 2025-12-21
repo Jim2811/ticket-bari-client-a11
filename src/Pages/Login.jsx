@@ -5,7 +5,7 @@ const Login = () => {
 
   return (
     <>
-    <title>Login - GameHub</title>
+    <title>Login - TicketBari</title>
       <div className="h-full mt-5 flex justify-center py-20 items-center flex-col">
         <form>
           <fieldset className="fieldset bg-base-100 border-base-300 rounded-box w-xs border p-4">
