@@ -41,14 +41,14 @@ const AdminDashboard = () => {
           </li>
 
           <li>
-            <NavLink to="/dashboard/admin-profile" className={activeClass}>
+            <NavLink to="/dashboard/profile" className={activeClass}>
               <CgProfile />
               Admin Profile
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/dashboard/manage-tickets" className={activeClass}>
+            <NavLink to="/dashboard/admin/manage-tickets" className={activeClass}>
               <IoTicketSharp />
               Manage Tickets
             </NavLink>
