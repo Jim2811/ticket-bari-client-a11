@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const AddTicket = () => {
   const { user } = useAuth();
@@ -10,6 +11,7 @@ const AddTicket = () => {
   const imgbbUrl = `https://api.imgbb.com/1/upload?key=${
     import.meta.env.VITE_IMGBB_KEY
   }`;
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
       data.vendorName = user?.displayName;
@@ -47,6 +49,7 @@ const AddTicket = () => {
           timer: 1500,
         });
         reset();
+        navigate("/dashboard/vendor/my-added-tickets");
       });
     } catch (error) {
       console.error(error);

@@ -1,8 +1,49 @@
 import React from "react";
 import { Link } from "react-router";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import {
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 
-const AddedTicketCard = ({ticket}) => {
-  console.log(ticket);
+const AddedTicketCard = ({ ticket }) => {
+  const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const deleteTicketMutation = useMutation({
+    mutationFn: (id) => axiosSecure.delete(`/tickets/${id}`),
+    onSuccess: () => {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your ticket has been deleted.",
+        icon: "success",
+      });
+
+      queryClient.invalidateQueries(["vendorTickets"]);
+    },
+    onError: () => {
+      Swal.fire("Error", "Failed to delete ticket!", "error");
+    },
+  });
+
+  const handleDlt = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteTicketMutation.mutate(ticket._id);
+      }
+    });
+  };
+
   return (
     <>
       <div
@@ -23,12 +64,12 @@ const AddedTicketCard = ({ticket}) => {
           </h3>
 
           <p className="text-sm font-medium">
-          <span className="font-bold ">From: </span>
-          <span>{ticket.from}</span>
+            <span className="font-bold ">From: </span>
+            <span>{ticket.from}</span>
           </p>
           <p className="text-sm font-medium">
-          <span className="font-bold">To: </span>
-          <span>{ticket.to}</span> 
+            <span className="font-bold">To: </span>
+            <span>{ticket.to}</span>
           </p>
 
           <p className="text-sm">
@@ -38,7 +79,8 @@ const AddedTicketCard = ({ticket}) => {
             <span className="font-bold">Quantity:</span> {ticket.quantity}
           </p>
           <p className="text-sm">
-            <span className="font-bold">Departure:</span> {new Date(ticket.departureDateTime).toLocaleString()}
+            <span className="font-bold">Departure:</span>{" "}
+            {new Date(ticket.departureDateTime).toLocaleString()}
           </p>
 
           <div className="mt-2">
@@ -57,7 +99,7 @@ const AddedTicketCard = ({ticket}) => {
 
           <div className="card-actions justify-end mt-4">
             <Link
-            to={`/dashboard/vendor/update-ticket/${ticket._id}`}
+              to={`/dashboard/vendor/update-ticket/${ticket._id}`}
               className="btn btn-sm  btn-primary"
               disabled={ticket.verificationStatus === "rejected"}
             >
@@ -66,6 +108,7 @@ const AddedTicketCard = ({ticket}) => {
             <button
               className="btn btn-sm btn-error text-white"
               disabled={ticket.verificationStatus === "rejected"}
+              onClick={handleDlt}
             >
               Delete
             </button>
