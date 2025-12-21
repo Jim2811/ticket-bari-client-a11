@@ -1,7 +1,7 @@
-import UserOverview from "./User/UserOverview";
+import VendorRevenueOverview from "./Vendor/VendorRevenueOverview";
 
 
 const DashboardOverview = () => {
-  return <UserOverview></UserOverview>
+  return <VendorRevenueOverview></VendorRevenueOverview>
 }
 export default DashboardOverview;

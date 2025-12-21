@@ -25,7 +25,7 @@ const VendorRevenueOverview = () => {
         `/vendor/revenue?vendorEmail=${user.email}`
       );
       return res.data;
-    },
+    } 
   });
 
   if (isLoading)
@@ -36,7 +36,7 @@ const VendorRevenueOverview = () => {
     );
   const chartData = [
     {
-      name: "Revenue (৳)",
+      name: "Revenue (৳)",
       Revenue: stats.totalRevenue,
       Sold: stats.totalTicketsSold,
       Added: stats.totalTicketsAdded,
@@ -46,7 +46,7 @@ const VendorRevenueOverview = () => {
   return (
     <section className="p-6 md:p-10 space-y-10">
       <h2 className="text-3xl font-bold text-primary text-center md:text-left">
-        Revenue Overview
+        Revenue Overview
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center mb-6">
