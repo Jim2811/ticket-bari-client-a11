@@ -47,7 +47,7 @@ const TicketCard = ({ ticket }) => {
 
           <div className="pt-2 text-sm text-base-content/70">
             <span className="font-medium">Departure:</span>{" "}
-            {ticket.departureDateTime}
+            {new Date(ticket.departureDateTime).toLocaleString()}
           </div>
 
           <div className="card-actions justify-end pt-3">

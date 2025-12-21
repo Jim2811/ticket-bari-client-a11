@@ -186,7 +186,7 @@ const TicketDetails = () => {
 
                 <p className="mt-4 text-sm text-base-content/70">
                   <span className="font-semibold">Departure:</span>{" "}
-                  {ticket.departureDateTime}
+                  {new Date(ticket.departureDateTime).toLocaleString()}
                 </p>
               </div>
             </div>
