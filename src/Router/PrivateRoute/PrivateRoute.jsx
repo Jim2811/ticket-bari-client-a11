@@ -12,7 +12,7 @@ const PrivateRoute = () => {
       </div>
     );
   }
-  return user ? <Outlet /> : <Navigate to="/login" />;
+  return user ? <Outlet /> : <Navigate state={{ from: location }} to="/login" replace/>;
 };
 
 export default PrivateRoute;

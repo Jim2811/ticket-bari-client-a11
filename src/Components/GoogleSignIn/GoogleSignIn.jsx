@@ -3,11 +3,13 @@ import Google from "../../assets/Google.svg";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 const GoogleSignIn = () => {
   const { googleSignIn } = useAuth();
   const axiosInstance = useAxios();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const handleClick = () => {
     googleSignIn()
       .then((result) => {
@@ -31,7 +33,7 @@ const GoogleSignIn = () => {
               showConfirmButton: false,
               timer: 1500,
             });
-            navigate("/")
+            navigate(from, { replace: true });
           })
           .catch((err) => {
             console.error("Error saving user:", err);
