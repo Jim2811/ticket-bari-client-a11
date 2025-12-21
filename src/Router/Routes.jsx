@@ -16,6 +16,7 @@ import DashboardOverview from "../Pages/TicketDetails/Dashboard/DashboardOvervie
 import AddTicket from "../Pages/TicketDetails/Dashboard/Vendor/AddTicket";
 import MyAddedTickets from "../Pages/TicketDetails/Dashboard/Vendor/MyAddedTickets";
 import UpdateTicket from "../Pages/TicketDetails/Dashboard/Vendor/UpdateTicket";
+import VendorRequestedBookings from "../Pages/TicketDetails/Dashboard/Vendor/VendorRequestedBooking";
 const route = createBrowserRouter([
   {
     path: "/",
@@ -91,6 +92,10 @@ const route = createBrowserRouter([
             path: "vendor/update-ticket/:id",
             Component: UpdateTicket,
           },
+          {
+            path: "vendor/requested-bookings",
+            Component: VendorRequestedBookings
+          }
         ],
       },
     ],
