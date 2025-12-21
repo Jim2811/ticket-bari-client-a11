@@ -18,6 +18,7 @@ import MyAddedTickets from "../Pages/TicketDetails/Dashboard/Vendor/MyAddedTicke
 import UpdateTicket from "../Pages/TicketDetails/Dashboard/Vendor/UpdateTicket";
 import VendorRequestedBookings from "../Pages/TicketDetails/Dashboard/Vendor/VendorRequestedBooking";
 import VendorRevenueOverview from "../Pages/TicketDetails/Dashboard/Vendor/VendorRevenueOverview";
+import UserOverview from "../Pages/TicketDetails/Dashboard/User/UserOverview";
 const route = createBrowserRouter([
   {
     path: "/",
