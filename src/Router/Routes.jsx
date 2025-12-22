@@ -21,6 +21,7 @@ import VendorRevenueOverview from "../Pages/TicketDetails/Dashboard/Vendor/Vendo
 import ManageTikcets from "../Pages/TicketDetails/Dashboard/Admin/ManageTikcets";
 import ManageUsers from "../Pages/TicketDetails/Dashboard/Admin/ManageUsers";
 import AdvertisedTickets from "../Pages/TicketDetails/Dashboard/Admin/AdvertisedTickets";
+import Error from "../Pages/Error";
 
 const route = createBrowserRouter([
   {
@@ -181,7 +182,7 @@ const route = createBrowserRouter([
   },
   {
     path: "*",
-    element: <Navigate to="/" replace />,
+    element: <Error></Error>,
   },
 ]);
 
