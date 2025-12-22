@@ -51,6 +51,7 @@ const TicketDetails = () => {
         seconds: Math.floor((difference / 1000) % 60),
       });
     }, 1000);
+    return () => clearInterval(interval);
   }, [ticket?.departureDateTime]);
 
   const handleBookNow = async () => {
@@ -174,7 +175,7 @@ const TicketDetails = () => {
                         {ticket.quantity}
                       </div>
                       <div className="stat-desc">
-                        {ticket.quantity == 0 ? "Sold out" : "In stock"}
+                        {ticket.quantity === 0 ? "Sold out" : "In stock"}
                       </div>
                     </div>
                   </div>
@@ -224,14 +225,16 @@ const TicketDetails = () => {
                   <button
                     className="btn btn-primary w-full"
                     disabled={
-                      timeLeft == 0 ||
-                      ticket.quantity == 0 ||
+                      ticket.quantity === 0 ||
+                      timeLeft === 0 ||
                       userData?.role === "admin" ||
                       userData?.role === "vendor"
                     }
                     onClick={handleBookNow}
                   >
-                    {userData?.role === "admin" || userData?.role === "vendor"
+                    {ticket.quantity <= 0
+                      ? "Sold Out"
+                      : userData?.role === "admin" || userData?.role === "vendor"
                       ? "Booking not allowed"
                       : "Book Now"}
                   </button>

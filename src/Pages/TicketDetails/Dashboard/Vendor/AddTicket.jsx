@@ -5,17 +5,20 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "../../../../Components/Spinner/Spinner";
+import { useState } from "react";
 
 const AddTicket = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { register, handleSubmit, reset } = useForm();
+  const [priceError, setPriceError] = useState("");
   const imgbbUrl = `https://api.imgbb.com/1/upload?key=${
     import.meta.env.VITE_IMGBB_KEY
   }`;
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
+      setPriceError("");
       data.vendorName = user?.displayName;
       data.vendorEmail = user?.email;
       data.pricePerUnit = parseFloat(data.pricePerUnit);
@@ -24,6 +27,12 @@ const AddTicket = () => {
       data.createdAt = new Date();
       data.verificationStatus = "pending";
       data.isAdvertised = false;
+
+      if (data.pricePerUnit < 100) {
+        setPriceError("Ticket price must be greater than 100");
+        return;
+      }
+
       const imageFile = data.imageFile[0];
       const formData = new FormData();
       formData.append("image", imageFile);
@@ -186,6 +195,9 @@ const AddTicket = () => {
                   placeholder="Example: 1500"
                   className="input input-bordered w-full"
                 />
+                {priceError && (
+                  <p className="text-red-500 text-sm mt-1">{priceError}</p>
+                )}
               </div>
               <div className="form-control w-full">
                 <label className="label">
