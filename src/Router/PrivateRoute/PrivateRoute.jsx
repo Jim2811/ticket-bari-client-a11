@@ -1,18 +1,25 @@
 import React from "react";
-
-import { Navigate, Outlet } from "react-router";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import Spinner from "../../Components/Spinner/Spinner";
-const PrivateRoute = () => {
+
+const PrivateRoute = ({ children }) => {
   const { user, userLoading } = useAuth();
+  const location = useLocation();
+
   if (userLoading) {
     return (
-      <div className="min-h-screen">
-        <Spinner></Spinner>
+      <div className="min-h-screen flex items-center justify-center">
+        <Spinner />
       </div>
     );
   }
-  return user ? <Outlet /> : <Navigate state={{ from: location }} to="/login" replace/>;
+
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children ? children : <Outlet />;
 };
 
 export default PrivateRoute;

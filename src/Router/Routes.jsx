@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
@@ -20,100 +20,168 @@ import VendorRequestedBookings from "../Pages/TicketDetails/Dashboard/Vendor/Ven
 import VendorRevenueOverview from "../Pages/TicketDetails/Dashboard/Vendor/VendorRevenueOverview";
 import ManageTikcets from "../Pages/TicketDetails/Dashboard/Admin/ManageTikcets";
 import ManageUsers from "../Pages/TicketDetails/Dashboard/Admin/ManageUsers";
+import AdvertisedTickets from "../Pages/TicketDetails/Dashboard/Admin/AdvertisedTickets";
+
 const route = createBrowserRouter([
   {
     path: "/",
-    Component: MainLayout,
+    element: <MainLayout />,
     children: [
       {
         index: true,
-        Component: Home,
+        element: <Home />,
       },
       {
         path: "login",
-        Component: Login,
+        element: <Login />,
       },
       {
         path: "register",
-        Component: Register,
+        element: <Register />,
       },
       {
-        Component: PrivateRoute,
-        children: [
-          {
-            path: "all-tickets",
-            Component: AllTickets,
-          },
-          {
-            path: "/ticket-detail/:id",
-            Component: TicketDetails,
-          },
-        ],
+        path: "all-tickets",
+        element: (
+          <PrivateRoute>
+            <AllTickets />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/ticket-detail/:id",
+        element: (
+          <PrivateRoute>
+            <TicketDetails />
+          </PrivateRoute>
+        ),
       },
     ],
   },
   {
-    Component: PrivateRoute,
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashBoard />
+      </PrivateRoute>
+    ),
     children: [
       {
-        path: "dashboard",
-        Component: DashBoard,
-        children: [
-          {
-            index: true,
-            Component: DashboardOverview,
-          },
-          {
-            path: "my-booked-tickets",
-            Component: MyBookedTickets,
-          },
-          {
-            path: "payment-success",
-            Component: PaymentSuccess,
-          },
-          {
-            path: "transaction-history",
-            Component: TransactionHistory,
-          },
-          {
-            path: "payment-cancel",
-            Component: PaymentCancel,
-          },
-          {
-            path: "profile",
-            Component: UserProfile,
-          },
-          {
-            path: "vendor/add-ticket",
-            Component: AddTicket,
-          },
-          {
-            path: "vendor/my-added-tickets",
-            Component: MyAddedTickets,
-          },
-          {
-            path: "vendor/update-ticket/:id",
-            Component: UpdateTicket,
-          },
-          {
-            path: "vendor/requested-bookings",
-            Component: VendorRequestedBookings
-          },
-          {
-            path: "vendor/revenue-overview",
-            Component: VendorRevenueOverview
-          },
-          {
-            path: "admin/manage-tickets",
-            Component: ManageTikcets
-          },
-          {
-            path: 'admin/manage-users',
-            Component: ManageUsers
-          }
-        ],
+        index: true,
+        element: (
+          <PrivateRoute>
+            <DashboardOverview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-booked-tickets",
+        element: (
+          <PrivateRoute>
+            <MyBookedTickets />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "payment-success",
+        element: (
+          <PrivateRoute>
+            <PaymentSuccess />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "payment-cancel",
+        element: (
+          <PrivateRoute>
+            <PaymentCancel />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "transaction-history",
+        element: (
+          <PrivateRoute>
+            <TransactionHistory />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <UserProfile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "vendor/add-ticket",
+        element: (
+          <PrivateRoute>
+            <AddTicket />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "vendor/my-added-tickets",
+        element: (
+          <PrivateRoute>
+            <MyAddedTickets />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "vendor/update-ticket/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateTicket />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "vendor/requested-bookings",
+        element: (
+          <PrivateRoute>
+            <VendorRequestedBookings />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "vendor/revenue-overview",
+        element: (
+          <PrivateRoute>
+            <VendorRevenueOverview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "admin/manage-tickets",
+        element: (
+          <PrivateRoute>
+            <ManageTikcets />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "admin/manage-users",
+        element: (
+          <PrivateRoute>
+            <ManageUsers />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "admin/advertise-tickets",
+        element: (
+          <PrivateRoute>
+            <AdvertisedTickets/>
+          </PrivateRoute>
+        ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" replace />,
   },
 ]);
 

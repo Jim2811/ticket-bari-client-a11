@@ -7,7 +7,7 @@ const AllTickets = () => {
   const { data: tickets = [] } = useQuery({
     queryKey: ["tickets"],
     queryFn: async () => {
-      const res = await axiosInstance.get("/tickets/latest-tickets");
+      const res = await axiosInstance.get("/tickets");
       return res.data;
     },
   });
