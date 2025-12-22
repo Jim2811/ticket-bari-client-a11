@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../../../Hooks/useAxios";
 import useAuth from "../../../../Hooks/useAuth";
 import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 const MyBookedTickets = () => {
-  const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure()
   const { user } = useAuth();
   const [timeLeft, setTimeLeft] = useState();
   const userEmail = user.email;
@@ -16,7 +16,7 @@ const MyBookedTickets = () => {
   } = useQuery({
     queryKey: ["bookings", userEmail],
     queryFn: async () =>
-      (await axiosInstance.get(`/bookings?email=${userEmail}`)).data,
+      (await axiosSecure.get(`/bookings?email=${userEmail}`)).data,
   });
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const MyBookedTickets = () => {
   }, [bookings, refetch]);
 
   const handlePayNow = async (bookingId) => {
-    await axiosInstance
+    await axiosSecure
       .post("/create-checkout-session", {
         bookingId,
       })

@@ -1,7 +1,7 @@
 import { CgProfile } from "react-icons/cg";
 import { FaHistory, FaHome } from "react-icons/fa";
 import { IoTicketSharp } from "react-icons/io5";
-import { RiMenu3Line } from "react-icons/ri";
+import { RiDashboardFill, RiMenu3Line } from "react-icons/ri";
 import { NavLink, Outlet } from "react-router";
 import DashboardOverview from "../DashboardOverview";
 import Footer from "../../../../Layout/Footer";
@@ -36,7 +36,7 @@ const UserDashboard = () => {
           <ul className="menu w-64 min-h-full bg-base-200">
             <li>
               <NavLink to="/dashboard" end className={activeClass}>
-                <MdDashboard />
+                <RiDashboardFill />
                 Dashboard
               </NavLink>
             </li>

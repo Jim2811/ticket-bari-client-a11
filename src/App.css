@@ -18,8 +18,9 @@
   --color-primary: #16A34A;
   --color-secondary: #DCFCE7;
   --color-accent: #F9FAFB;
+
   --color-primary-content: #ffffff;
-  --color-accent-content: #fff;
+  --color-accent-content: #16A34A;
 }
 * {
   font-family: "Inter", sans-serif;

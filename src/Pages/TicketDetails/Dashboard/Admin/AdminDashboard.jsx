@@ -4,6 +4,7 @@ import { IoTicketSharp } from "react-icons/io5";
 import { RiAdvertisementFill, RiMenu3Line } from "react-icons/ri";
 import { NavLink, Outlet } from "react-router-dom";
 import Footer from "../../../../Layout/Footer";
+import { MdDashboard } from "react-icons/md";
 
 const AdminDashboard = () => {
   const activeClass = ({ isActive }) =>
@@ -37,7 +38,7 @@ const AdminDashboard = () => {
           <ul className="menu w-64 min-h-full bg-base-200 text-base-content p-4 space-y-1">
             <li>
               <NavLink to="/dashboard" end className={activeClass}>
-                <MdDashboard />
+                <MdDashboard></MdDashboard>
                 Dashboard
               </NavLink>
             </li>

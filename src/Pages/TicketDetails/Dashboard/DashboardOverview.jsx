@@ -16,11 +16,11 @@ const DashboardOverview = () => {
     queryKey: ["userData", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users?email=${user?.email}`);
+      const res = await axiosSecure.get(`/users?email=${user?.email}`)
+      
       return res.data;
-    },
+    }
   });
-
   const userData = Array.isArray(userDataArr)
     ? userDataArr[0]
     : userDataArr; 

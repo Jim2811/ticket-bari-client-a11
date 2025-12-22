@@ -1,13 +1,13 @@
 import { Link, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../Hooks/useAxios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const TicketDetails = () => {
   const { id } = useParams();
-  const axiosInstance = useAxios();
+  const axiosInstance = useAxiosSecure();
   const [timeLeft, setTimeLeft] = useState();
   const { user } = useAuth();
   const {
@@ -69,19 +69,22 @@ const TicketDetails = () => {
     if (!quantity) return;
 
     try {
-      axiosInstance.post("/bookings", {
-        ticketId: ticket._id,
-        userEmail: user.email,
-        paymentStatus: 'unpaid',
-        status: 'pending',
-        bookingQuantity: Number(quantity),
-        createdAt: new Date()
-      });
-      Swal.fire({
-        icon: "success",
-        title: "Booking Successful",
-        text: "Your booking is now pending",
-      });
+      await axiosInstance
+        .post("/bookings", {
+          ticketId: ticket._id,
+          userEmail: user.email,
+          paymentStatus: "unpaid",
+          status: "pending",
+          bookingQuantity: Number(quantity),
+          createdAt: new Date(),
+        })
+        .then(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Booking Successful",
+            text: "Your booking is now pending",
+          });
+        });
     } catch {
       Swal.fire({
         icon: "error",

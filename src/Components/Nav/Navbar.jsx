@@ -55,9 +55,9 @@ const Navbar = () => {
           {user ? (
             <LogoutAndProfile></LogoutAndProfile>
           ) : (
-            <NavLink to="/login" className="btn btn-primary hover:btn-accent">
+            <Link to="/login" className="btn btn-primary hover:btn-accent">
               Login/Register
-            </NavLink>
+            </Link>
           )}
         </div>
       </div>

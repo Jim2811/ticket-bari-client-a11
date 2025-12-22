@@ -32,15 +32,13 @@ const ManageUsers = () => {
       if (result.isConfirmed) {
         axiosSecure
           .patch(`/users/${id}/${action}`)
-          .then((res) => {
-            if (res.data.modifiedCount > 0) {
+          .then(() => {
               Swal.fire(
                 "Success!",
                 `User role updated successfully`,
                 "success"
               );
               refetch();
-            }
           })
           .catch(() => {
             Swal.fire("Error!", "Failed to update role", "error");
