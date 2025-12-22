@@ -2,11 +2,18 @@ import { Link } from "react-router";
 import ProfilePic from "../../assets/default-profile.png";
 import useAuth from "../../Hooks/useAuth";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 const LogoutAndProfile = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const { user, logout } = useAuth();
   const handleLogout = () => {
-    logout().then(() => alert("Logged Out"));
+    logout().then(() => Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Logout Success!!!",
+  showConfirmButton: false,
+  timer: 1500
+}));
   };
   useEffect(() => {
     const html = document.querySelector("html");
