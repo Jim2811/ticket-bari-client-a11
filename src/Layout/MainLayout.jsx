@@ -1,17 +1,22 @@
 import React from "react";
-import { Outlet } from "react-router";
+import { Outlet, useNavigation } from "react-router-dom";
 import Navbar from "../Components/Nav/Navbar";
 import Footer from "./Footer";
+import Spinner from "../Components/Spinner/Spinner";
 
 const MainLayout = () => {
+  const navigation = useNavigation();
+
   return (
-    <>
-      <div className="max-w-7xl mx-auto">
-        <Navbar></Navbar>
-        <Outlet></Outlet>
-        <Footer></Footer>
-      </div>
-    </>
+    <div className="max-w-7xl mx-auto relative">
+      <Navbar />
+
+      {navigation.state === "loading" && (
+        <Spinner></Spinner>
+      )}
+      <Outlet />
+      <Footer />
+    </div>
   );
 };
 

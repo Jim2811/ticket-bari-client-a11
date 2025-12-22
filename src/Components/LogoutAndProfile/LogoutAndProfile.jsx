@@ -4,17 +4,15 @@ import useAuth from "../../Hooks/useAuth";
 import { useEffect, useState } from "react";
 const LogoutAndProfile = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-  const { user, logout} = useAuth();
-  const handleLogout = () =>{
-    logout()
-    .then(()=> alert('Logged Out'))
-  }
+  const { user, logout } = useAuth();
+  const handleLogout = () => {
+    logout().then(() => alert("Logged Out"));
+  };
   useEffect(() => {
     const html = document.querySelector("html");
     html.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
-
 
   const handleTheme = (checked) => {
     setTheme(checked ? "dark" : "light");
@@ -48,13 +46,13 @@ const LogoutAndProfile = () => {
               <input
                 onChange={(e) => handleTheme(e.target.checked)}
                 type="checkbox"
-                defaultChecked={localStorage.getItem("theme") === "dark"}
+                checked={theme === "dark"}
                 className="toggle"
               />
             </div>
             <Link
               className="btn btn-primary mt-3 w-full hover:bg-white hover:border-red-600 hover:text-black"
-              to={'/dashboard/profile'}
+              to={"/dashboard/profile"}
             >
               My Profile
             </Link>

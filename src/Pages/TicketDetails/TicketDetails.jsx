@@ -10,6 +10,16 @@ const TicketDetails = () => {
   const axiosInstance = useAxiosSecure();
   const [timeLeft, setTimeLeft] = useState();
   const { user } = useAuth();
+
+  const { data: userData } = useQuery({
+    queryKey: ["user-role", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosInstance.get(`/users?email=${user.email}`);
+      return res.data[0];
+    },
+  });
+
   const {
     data: ticket,
     isLoading,
@@ -57,34 +67,28 @@ const TicketDetails = () => {
       confirmButtonText: "Confirm Booking",
       cancelButtonText: "Cancel",
       inputValidator: (value) => {
-        if (!value || value <= 0) {
-          return "Quantity must be at least 1";
-        }
-        if (value > ticket.quantity) {
+        if (!value || value <= 0) return "Quantity must be at least 1";
+        if (value > ticket.quantity)
           return "Quantity exceeds available tickets";
-        }
       },
     });
 
     if (!quantity) return;
 
     try {
-      await axiosInstance
-        .post("/bookings", {
-          ticketId: ticket._id,
-          userEmail: user.email,
-          paymentStatus: "unpaid",
-          status: "pending",
-          bookingQuantity: Number(quantity),
-          createdAt: new Date(),
-        })
-        .then(() => {
-          Swal.fire({
-            icon: "success",
-            title: "Booking Successful",
-            text: "Your booking is now pending",
-          });
-        });
+      await axiosInstance.post("/bookings", {
+        ticketId: ticket._id,
+        userEmail: user.email,
+        paymentStatus: "unpaid",
+        status: "pending",
+        bookingQuantity: Number(quantity),
+        createdAt: new Date(),
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Booking Successful",
+        text: "Your booking is now pending",
+      });
     } catch {
       Swal.fire({
         icon: "error",
@@ -107,7 +111,7 @@ const TicketDetails = () => {
       <div className="min-h-screen bg-base-200">
         <div className="container mx-auto px-4 py-10">
           <div className="alert alert-error">
-            <span>Ticket not found </span>
+            <span>Ticket not found</span>
           </div>
           <div className="mt-4">
             <Link to="/all-tickets" className="btn btn-primary btn-sm">
@@ -218,11 +222,18 @@ const TicketDetails = () => {
 
                 <div className="card-actions mt-5">
                   <button
-                    className={`btn btn-primary w-full`}
-                    disabled={timeLeft == 0 || ticket.quantity == 0}
+                    className="btn btn-primary w-full"
+                    disabled={
+                      timeLeft == 0 ||
+                      ticket.quantity == 0 ||
+                      userData?.role === "admin" ||
+                      userData?.role === "vendor"
+                    }
                     onClick={handleBookNow}
                   >
-                    Book Now
+                    {userData?.role === "admin" || userData?.role === "vendor"
+                      ? "Booking not allowed"
+                      : "Book Now"}
                   </button>
                 </div>
 

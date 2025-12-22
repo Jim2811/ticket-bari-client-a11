@@ -6,7 +6,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
-import { Link } from "react-router";
 const Banner = () => {
   const datas = [
     {
@@ -51,12 +50,6 @@ const Banner = () => {
                 <p className="mt-4 text-white text-sm md:text-lg lg:text-xl max-w-xl drop-shadow-md">
                   Discover buses, trains, and more — all in one place.
                 </p>
-                <Link
-                  href="/tickets"
-                  className="mt-6 btn btn-primary"
-                >
-                  Get Started
-                </Link>
               </div>
             </section>
           </SwiperSlide>
