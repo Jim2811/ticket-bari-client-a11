@@ -34,6 +34,12 @@ const AdminDashboard = () => {
 
         <ul className="menu w-64 min-h-full bg-base-200 text-base-content p-4 space-y-1">
           <li>
+            <NavLink to="/dashboard" end className={activeClass}>
+              <MdDashboard />
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/" end className={activeClass}>
               <FaHome />
               Homepage
@@ -48,7 +54,10 @@ const AdminDashboard = () => {
           </li>
 
           <li>
-            <NavLink to="/dashboard/admin/manage-tickets" className={activeClass}>
+            <NavLink
+              to="/dashboard/admin/manage-tickets"
+              className={activeClass}
+            >
               <IoTicketSharp />
               Manage Tickets
             </NavLink>
@@ -62,12 +71,14 @@ const AdminDashboard = () => {
           </li>
 
           <li>
-            <NavLink to="/dashboard/admin/advertise-tickets" className={activeClass}>
+            <NavLink
+              to="/dashboard/admin/advertise-tickets"
+              className={activeClass}
+            >
               <RiAdvertisementFill />
               Advertise Tickets
             </NavLink>
           </li>
-
         </ul>
       </div>
     </div>

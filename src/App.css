@@ -12,3 +12,21 @@
   --color-primary-content: #ffffff;
   --color-accent-content: #16A34A;
 }
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;
+  --color-primary: #16A34A;
+  --color-secondary: #DCFCE7;
+  --color-accent: #10b981;
+  --color-primary-content: #ffffff;
+  --color-accent-content: #fff;
+}
+* {
+  font-family: "Inter", sans-serif;
+}
+.active {
+  color: #16A34A;
+  font-weight: bold;
+  border-bottom: 1px solid #16A34A;
+  border-radius: 0;
+}

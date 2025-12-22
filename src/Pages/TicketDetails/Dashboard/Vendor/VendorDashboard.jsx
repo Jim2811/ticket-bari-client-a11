@@ -5,6 +5,7 @@ import { FaChartBar, FaHome } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { LuTicketPlus } from "react-icons/lu";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
+import { MdDashboard } from "react-icons/md";
 
 const VendorDashboard = () => {
   const activeClass = ({ isActive }) =>
@@ -30,13 +31,19 @@ const VendorDashboard = () => {
       </div>
 
       <div className="drawer-side">
+        
         <label htmlFor="vendor-drawer" className="drawer-overlay"></label>
-
         <ul className="menu w-64 min-h-full bg-base-200">
           <li>
             <NavLink to="/" end className={activeClass}>
               <FaHome />
               Homepage
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard" end className={activeClass}>
+              <MdDashboard />
+              Dashboard
             </NavLink>
           </li>
 

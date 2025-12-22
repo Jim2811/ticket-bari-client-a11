@@ -14,8 +14,8 @@ const WhyChooseUs = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="card bg-white shadow-md p-6 text-center">
-              <div className="text-4xl mb-4 flex justify-center"><FaBus /></div>
-              <h3 className="text-xl font-semibold mb-2">
+              <div className="text-4xl mb-4 flex justify-center"><FaBus className="text-black"  /></div>
+              <h3 className="text-black text-xl font-semibold mb-2">
                 Multiple Transport Options
               </h3>
               <p className="text-gray-600">
@@ -25,8 +25,8 @@ const WhyChooseUs = () => {
             </div>
 
             <div className="card bg-white shadow-md p-6 text-center">
-              <div className="text-4xl mb-4 flex justify-center"><MdElectricBolt /></div>
-              <h3 className="text-xl font-semibold mb-2">
+              <div className="text-4xl mb-4 flex justify-center"><MdElectricBolt  className="text-black" /></div>
+              <h3 className="text-black text-xl font-semibold mb-2">
                 Fast & Easy Booking
               </h3>
               <p className="text-gray-600">
@@ -35,16 +35,16 @@ const WhyChooseUs = () => {
             </div>
 
             <div className="card bg-white shadow-md p-6 text-center">
-              <div className="text-4xl mb-4 flex justify-center"><FaLock /></div>
-              <h3 className="text-xl font-semibold mb-2">Secure Payment</h3>
+              <div className="text-4xl mb-4 flex justify-center"><FaLock  className="text-black" /></div>
+              <h3 className="text-black text-xl font-semibold mb-2">Secure Payment</h3>
               <p className="text-gray-600">
                 Safe transactions with trusted gateways and encrypted data.
               </p>
             </div>
 
             <div className="card bg-white shadow-md p-6 text-center">
-              <div className="text-4xl mb-4 flex justify-center"><FaLightbulb /></div>
-              <h3 className="text-xl font-semibold mb-2">
+              <div className="text-4xl mb-4 flex justify-center"><FaLightbulb className="text-black" /></div>
+              <h3 className="text-black text-xl font-semibold mb-2">
                 Smart Recommendations
               </h3>
               <p className="text-gray-600">
@@ -53,16 +53,16 @@ const WhyChooseUs = () => {
             </div>
 
             <div className="card bg-white shadow-md p-6 text-center">
-              <div className="text-4xl mb-4 flex justify-center"><IoPhonePortrait /></div>
-              <h3 className="text-xl font-semibold mb-2">Mobile Friendly</h3>
+              <div className="text-4xl mb-4 flex justify-center"><IoPhonePortrait className="text-black" /></div>
+              <h3 className="text-black text-xl font-semibold mb-2">Mobile Friendly</h3>
               <p className="text-gray-600">
                 Fully responsive design for booking on the go.
               </p>
             </div>
 
             <div className="card bg-white shadow-md p-6 text-center">
-              <div className="text-4xl mb-4 flex justify-center"><FaGlobe /></div>
-              <h3 className="text-xl font-semibold mb-2">Wide Coverage</h3>
+              <div className="text-4xl mb-4 flex justify-center"><FaGlobe className="text-black" /></div>
+              <h3 className="text-black text-xl font-semibold mb-2">Wide Coverage</h3>
               <p className="text-gray-600">
                 Access routes and services across Bangladesh and beyond.
               </p>

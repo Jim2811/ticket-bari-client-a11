@@ -1,6 +1,6 @@
 import React from "react";
 import { FaBars } from "react-icons/fa6";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import TicketBari from "../../assets/ticketBari.png";
 import useAuth from "../../Hooks/useAuth";
 import LogoutAndProfile from "../LogoutAndProfile/LogoutAndProfile";
@@ -23,13 +23,13 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-accent rounded-box w-52 text-[1.1rem] text-black"
             >
               <li>
-                <Link to="/">Home</Link>
+                <NavLink to="/">Home</NavLink>
               </li>
               <li>
-                <Link to="/tickets">All Tickets</Link>
+                <NavLink to="/tickets">All Tickets</NavLink>
               </li>
               <li>
-                <Link to="/dashboard">Dashboard</Link>
+                <NavLink to="/dashboard">Dashboard</NavLink>
               </li>
             </ul>
           </div>
@@ -41,13 +41,13 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 text-[1.1rem]">
             <li>
-              <Link to="/">Home</Link>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <Link to="/all-tickets">All Tickets</Link>
+              <NavLink to="/all-tickets">All Tickets</NavLink>
             </li>
             <li>
-              <Link to="/dashboard">Dashboard</Link>
+              <NavLink to="/dashboard">Dashboard</NavLink>
             </li>
           </ul>
         </div>
@@ -55,9 +55,9 @@ const Navbar = () => {
           {user ? (
             <LogoutAndProfile></LogoutAndProfile>
           ) : (
-            <Link to="/login" className="btn btn-primary hover:btn-accent">
+            <NavLink to="/login" className="btn btn-primary hover:btn-accent">
               Login/Register
-            </Link>
+            </NavLink>
           )}
         </div>
       </div>

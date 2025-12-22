@@ -116,8 +116,8 @@ const AdminOverview = () => {
             data={data}
             margin={{ top: 10, right: 20, left: 0, bottom: 10 }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-            <XAxis dataKey="name" tick={{ fill: "#6B7280" }} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#F5AFAF" />
+            <XAxis dataKey="name" tick={{ fill: "" }} />
             <YAxis allowDecimals={false} tick={{ fill: "#6B7280" }} />
             <Tooltip
               formatter={(value) => [`${value} Tickets`, "Count"]}

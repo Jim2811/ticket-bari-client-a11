@@ -34,6 +34,12 @@ const UserDashboard = () => {
 
         <ul className="menu w-64 min-h-full bg-base-200">
           <li>
+            <NavLink to="/dashboard" end className={activeClass}>
+              <MdDashboard />
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/" end className={activeClass}>
               <FaHome />
               Homepage
