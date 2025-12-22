@@ -3,6 +3,7 @@ import VendorRevenueOverview from "./Vendor/VendorRevenueOverview";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import UserOverview from "../Dashboard/User/UserOverview";
+import AdminOverview from "./Admin/AdminOverview";
 
 const DashboardOverview = () => {
   const axiosSecure = useAxiosSecure();
@@ -31,6 +32,7 @@ const DashboardOverview = () => {
     <>
       {userData?.role === "user" && <UserOverview />}
       {userData?.role === "vendor" && <VendorRevenueOverview />}
+      {userData?.role === "admin" && <AdminOverview />}
       {!userData && (
         <p className="text-center text-error mt-4">
           User data not found or role undefined.
