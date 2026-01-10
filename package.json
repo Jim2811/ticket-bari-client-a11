@@ -17,6 +17,7 @@
     "framer-motion": "^12.23.26",
     "motion": "^12.23.26",
     "react": "^19.2.3",
+    "react-countup": "^6.5.3",
     "react-dom": "^19.2.3",
     "react-fast-marquee": "^1.6.5",
     "react-hook-form": "^7.69.0",

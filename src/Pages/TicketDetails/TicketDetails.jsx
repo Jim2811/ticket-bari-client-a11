@@ -1,9 +1,10 @@
-import { Link, useParams } from "react-router";
+import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { FaClock, FaMapMarkerAlt, FaTicketAlt } from "react-icons/fa";
 
 const TicketDetails = () => {
   const { id } = useParams();
@@ -20,22 +21,18 @@ const TicketDetails = () => {
     },
   });
 
-  const {
-    data: ticket,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: ticket, isLoading, isError } = useQuery({
     queryKey: ["ticket-details", id],
     enabled: !!id,
     queryFn: async () => {
-      const rest = await axiosInstance.get(`/tickets/${id}`);
-      return rest.data;
+      const res = await axiosInstance.get(`/tickets/${id}`);
+      return res.data;
     },
   });
 
   useEffect(() => {
-    if (!ticket || !ticket.departureDateTime) return;
-    const departureTime = new Date(ticket?.departureDateTime).getTime();
+    if (!ticket?.departureDateTime) return;
+    const departureTime = new Date(ticket.departureDateTime).getTime();
     const interval = setInterval(() => {
       const now = Date.now();
       const difference = departureTime - now;
@@ -59,18 +56,14 @@ const TicketDetails = () => {
       title: "Book Ticket",
       input: "number",
       inputLabel: "Enter ticket quantity",
-      inputAttributes: {
-        min: 1,
-        max: ticket.quantity,
-      },
+      inputAttributes: { min: 1, max: ticket.quantity },
       inputValue: 1,
       showCancelButton: true,
       confirmButtonText: "Confirm Booking",
       cancelButtonText: "Cancel",
       inputValidator: (value) => {
         if (!value || value <= 0) return "Quantity must be at least 1";
-        if (value > ticket.quantity)
-          return "Quantity exceeds available tickets";
+        if (value > ticket.quantity) return "Quantity exceeds available tickets";
       },
     });
 
@@ -85,162 +78,155 @@ const TicketDetails = () => {
         bookingQuantity: Number(quantity),
         createdAt: new Date(),
       });
-      Swal.fire({
-        icon: "success",
-        title: "Booking Successful",
-        text: "Your booking is now pending",
-      });
+      Swal.fire({ icon: "success", title: "Booking Successful", text: "Your booking is now pending" });
     } catch {
-      Swal.fire({
-        icon: "error",
-        title: "Booking Failed",
-        text: "Something went wrong",
-      });
+      Swal.fire({ icon: "error", title: "Booking Failed", text: "Something went wrong" });
     }
   };
 
-  if (isLoading) {
+  if (isLoading)
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <span className="loading loading-spinner loading-lg"></span>
+      <div className="min-h-screen flex items-center justify-center bg-base-200">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
       </div>
     );
-  }
 
-  if (isError || !ticket) {
+  if (isError || !ticket)
     return (
-      <div className="min-h-screen bg-base-200">
-        <div className="container mx-auto px-4 py-10">
-          <div className="alert alert-error">
-            <span>Ticket not found</span>
-          </div>
-          <div className="mt-4">
-            <Link to="/all-tickets" className="btn btn-primary btn-sm">
-              Back to All Tickets
-            </Link>
-          </div>
+      <div className="min-h-screen bg-base-200 flex flex-col items-center justify-center space-y-6">
+        <div className="alert alert-error shadow-md w-fit">
+          <span>Ticket not found</span>
         </div>
+        <Link to="/all-tickets" className="btn btn-primary btn-sm">
+          Back to All Tickets
+        </Link>
       </div>
     );
-  }
 
   return (
-    <div className="min-h-screen bg-base-200">
+    <div className="min-h-screen bg-base-200 text-base-content transition-colors duration-500">
       <div className="container mx-auto px-4 py-8">
-        <Link to="/all-tickets" className="btn btn-ghost btn-sm mb-4">
-          ← Back to All Tickets
+        <Link
+          to="/all-tickets"
+          className="btn btn-outline btn-sm mb-6 flex items-center gap-1"
+        >
+          <FaTicketAlt className="text-primary" /> Back to Tickets
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">
-            <div className="card bg-base-100 shadow-xl">
-              <figure className="max-h-100">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2">
+            <div className="card bg-base-100 border border-base-300 rounded-xl shadow-md hover:shadow-lg">
+              <figure className="max-h-[420px] overflow-hidden rounded-t-xl">
                 <img
                   src={ticket.imageURL}
                   alt={ticket.title}
-                  className="h-full w-full object-cover"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
                 />
               </figure>
-              <div className="card-body">
-                <h1 className="text-4xl md:text-5xl font-bold">
+              <div className="card-body p-6">
+                <h1 className="text-3xl md:text-4xl font-bold text-primary mb-3">
                   {ticket.title}
                 </h1>
 
-                <div className="flex flex-wrap gap-2 mt-2">
-                  <span className="badge badge-outline">
+                <div className="flex flex-wrap items-center gap-3 mb-3 text-sm">
+                  <span className="flex items-center gap-1 text-base-content/80">
+                    <FaMapMarkerAlt className="text-primary" />
                     {ticket.from} → {ticket.to}
                   </span>
-                  <span className="badge badge-ghost capitalize">
+                  <span className="badge bg-primary/10 text-primary capitalize">
                     {ticket.transportType}
                   </span>
                 </div>
 
-                <div className="divider my-3"></div>
+                <div className="divider my-4"></div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="stats bg-base-200 shadow">
-                    <div className="stat">
-                      <div className="stat-title">Price</div>
-                      <div className="stat-value text-success text-2xl">
-                        ৳ {ticket.pricePerUnit}
-                      </div>
-                      <div className="stat-desc">per unit</div>
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-center">
+                  <div className="p-4 rounded-xl bg-base-200 shadow-sm">
+                    <p className="text-sm text-base-content/60">Price per Unit</p>
+                    <h3 className="text-3xl font-extrabold text-primary">
+                      ৳ {ticket.pricePerUnit}
+                    </h3>
                   </div>
-
-                  <div className="stats bg-base-200 shadow">
-                    <div className="stat">
-                      <div className="stat-title">Available Quantity</div>
-                      <div className="stat-value text-2xl">
-                        {ticket.quantity}
-                      </div>
-                      <div className="stat-desc">
-                        {ticket.quantity === 0 ? "Sold out" : "In stock"}
-                      </div>
-                    </div>
+                  <div className="p-4 rounded-xl bg-base-200 shadow-sm">
+                    <p className="text-sm text-base-content/60">Available Quantity</p>
+                    <h3 className="text-3xl font-bold text-base-content">
+                      {ticket.quantity}
+                    </h3>
+                    <p className="text-xs text-base-content/60 mt-1">
+                      {ticket.quantity === 0 ? "Sold out" : "In stock"}
+                    </p>
                   </div>
                 </div>
 
-                <div className="mt-4">
-                  <h2 className="font-semibold mb-2">Perks</h2>
-                  <div className="flex flex-wrap gap-2">
-                    {(ticket.perks || []).map((perk, idx) => (
-                      <span key={idx} className="badge badge-outline">
-                        {perk}
-                      </span>
-                    ))}
+                {ticket.perks?.length > 0 && (
+                  <div className="mt-6">
+                    <h2 className="font-semibold text-base-content mb-2">Perks</h2>
+                    <div className="flex flex-wrap gap-2">
+                      {ticket.perks.map((perk, idx) => (
+                        <span
+                          key={idx}
+                          className="badge badge-outline border-base-300 dark:border-gray-600 text-xs text-base-content/70"
+                        >
+                          {perk}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
-                <p className="mt-4 text-sm text-base-content/70">
-                  <span className="font-semibold">Departure:</span>{" "}
-                  {new Date(ticket.departureDateTime).toLocaleString()}
-                </p>
+                <div className="mt-6 flex items-center gap-2 text-sm text-base-content/70">
+                  <FaClock className="text-primary" />
+                  <span>
+                    Departure:{" "}
+                    {new Date(ticket.departureDateTime).toLocaleString()}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-1">
-            <div className="card bg-base-100 shadow-xl lg:sticky lg:top-24">
+            <div className="card bg-base-100 border border-base-300 shadow-md rounded-xl sticky top-24">
               <div className="card-body">
-                <h2 className="card-title">Book This Ticket</h2>
+                <h2 className="card-title text-lg font-bold text-center mb-3">
+                  Booking Summary
+                </h2>
 
-                <div className="p-4 rounded-lg bg-base-200">
+                <div className="p-4 rounded-lg bg-base-200 text-center mb-5">
                   {timeLeft ? (
-                    <p className="text-xl font-extrabold text-primary">
+                    <p className="text-xl font-extrabold text-primary tracking-wide">
                       {timeLeft.days}D {timeLeft.hours}H {timeLeft.minutes}M{" "}
                       {timeLeft.seconds}S
                     </p>
                   ) : (
-                    <p className="text-xl font-extrabold text-red-500">
-                      00D 00H 00M 00S
-                    </p>
+                    <p className="text-xl font-extrabold text-error">00D 00H 00M 00S</p>
                   )}
-                  <p className="text-sm text-base-content/70">
-                    Left for departure
+                  <p className="text-xs text-base-content/60 mt-1">
+                    Time left for departure
                   </p>
                 </div>
 
-                <div className="card-actions mt-5">
-                  <button
-                    className="btn btn-primary w-full"
-                    disabled={
-                      ticket.quantity === 0 ||
-                      timeLeft === 0 ||
-                      userData?.role === "admin" ||
-                      userData?.role === "vendor"
-                    }
-                    onClick={handleBookNow}
-                  >
-                    {ticket.quantity <= 0
-                      ? "Sold Out"
-                      : userData?.role === "admin" || userData?.role === "vendor"
-                      ? "Booking not allowed"
-                      : "Book Now"}
-                  </button>
-                </div>
+                <button
+                  className="btn btn-primary w-full"
+                  disabled={
+                    ticket.quantity === 0 ||
+                    timeLeft === 0 ||
+                    userData?.role === "admin" ||
+                    userData?.role === "vendor"
+                  }
+                  onClick={handleBookNow}
+                >
+                  {ticket.quantity <= 0
+                    ? "Sold Out"
+                    : userData?.role === "admin" || userData?.role === "vendor"
+                    ? "Booking not allowed"
+                    : "Book Now"}
+                </button>
 
-                <p className="text-xs text-base-content/60 mt-2"></p>
+                <p className="text-xs text-base-content/60 mt-4 text-center">
+                  Booking is disabled for Admins and Vendors
+                </p>
               </div>
             </div>
           </div>
