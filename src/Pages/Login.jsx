@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import GoogleSignIn from "../Components/GoogleSignIn/GoogleSignIn";
@@ -24,88 +24,148 @@ const Login = () => {
         reset();
         navigate(from, { replace: true });
       })
-      .catch((err) => {
-        Swal.fire("Error", err.message || "Login failed!", "error");
-      });
+      .catch((err) =>
+        Swal.fire("Error", err.message || "Login failed!", "error")
+      );
   };
+
+  const demoLogin = (role) => {
+    let credentials = {};
+    if (role === "user")
+      credentials = {
+        email: "userdemo@ticketbari.com",
+        password: "Userdemo@ticketbari.com",
+      };
+    else if (role === "admin")
+      credentials = {
+        email: "admindemo@ticketbari.com",
+        password: "Admindemo@ticketbari.com",
+      };
+    else if (role === "vendor")
+      credentials = {
+        email: "vendordemo@ticketbari.com",
+        password: "Vendordemo@ticketbari.com",
+      };
+
+    signInUser(credentials.email, credentials.password)
+      .then(() => {
+        Swal.fire(
+          "Demo Login Successful",
+          `${role.charAt(0).toUpperCase() + role.slice(1)} account logged in`,
+          "success"
+        );
+        navigate("/dashboard", { replace: true });
+      })
+      .catch((err) =>
+        Swal.fire("Error", err.message || "Demo login failed", "error")
+      );
+  };
+
+  if (user)
+    return (
+      <p className="text-red-600 font-bold text-xl text-center py-5">
+        You are already logged in. Go to your desired page.
+      </p>
+    );
 
   return (
     <>
       <title>Login - TicketBari</title>
-      {user ? (
-        <p className="text-red-600 font-bold text-xl text-center py-5">
-          You Currently Logged in please go to your desired page
-        </p>
-      ) : (
-        <div className="h-full mt-5 flex justify-center py-20 items-center flex-col">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <fieldset className="fieldset bg-base-100 border-base-300 rounded-box w-xs border p-4">
-              <h1 className="text-center font-bold text-3xl md:text-5xl text-primary pb-2">
-                Login <br /> to <br /> TicketBari
-              </h1>
+      <main className="min-h-screen bg-base-200 flex flex-col justify-center items-center py-10 px-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="card bg-base-100 border border-base-300 shadow-xl p-8 w-full max-w-sm"
+        >
+          <h1 className="text-center font-bold text-3xl md:text-4xl text-primary mb-6">
+            Login to TicketBari
+          </h1>
 
-              <label className="label">Email</label>
-              <input
-                type="email"
-                className="input"
-                placeholder="Email"
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Invalid Email Address",
-                  },
-                })}
-              />
-              {errors.email && (
-                <span className="text-red-500 text-sm pl-1">
-                  {errors.email.message}
-                </span>
-              )}
+          <label className="label font-medium">Email</label>
+          <input
+            type="email"
+            placeholder="Email"
+            className="input input-bordered w-full"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email address",
+              },
+            })}
+          />
+          {errors.email && (
+            <span className="text-error text-sm">{errors.email.message}</span>
+          )}
 
-              <label className="label">Password</label>
-              <input
-                type="password"
-                className="input"
-                placeholder="Password"
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                })}
-              />
-              {errors.password && (
-                <span className="text-red-500 text-sm pl-1">
-                  {errors.password.message}
-                </span>
-              )}
+          <label className="label font-medium mt-3">Password</label>
+          <input
+            type="password"
+            placeholder="Password"
+            className="input input-bordered w-full"
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters",
+              },
+            })}
+          />
+          {errors.password && (
+            <span className="text-error text-sm">{errors.password.message}</span>
+          )}
 
-              <Link
-                to={"/reset-password"}
-                className="text-primary font-bold py-1"
-              >
-                Forgot Password
-              </Link>
+          <div className="flex justify-between items-center mt-2">
+            <Link
+              to="/reset-password"
+              className="text-sm text-primary font-semibold hover:underline"
+            >
+              Forgot Password?
+            </Link>
+          </div>
 
-              <button
-                className="btn btn-primary transition hover:btn-accent mt-4"
-                type="submit"
-              >
-                Login
-              </button>
+          <button
+            type="submit"
+            className="btn btn-primary hover:btn-accent w-full mt-5 normal-case"
+          >
+            Login
+          </button>
 
-              <Link to={"/register"} className="py-2">
-                Do not have an Account?{" "}
-                <span className="font-bold text-primary">Register</span>
-              </Link>
-            </fieldset>
-          </form>
+          <p className="text-center text-sm mt-4">
+            Don’t have an account?{" "}
+            <Link to="/register" className="text-primary font-bold">
+              Register
+            </Link>
+          </p>
 
+          <div className="divider my-6">or continue with</div>
           <GoogleSignIn />
-        </div>
-      )}
+          <div className="divider my-6">Demo Access</div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button
+              type="button"
+              onClick={() => demoLogin("user")}
+              className="btn btn-outline btn-sm sm:btn-md"
+            >
+              User Demo
+            </button>
+            <button
+              type="button"
+              onClick={() => demoLogin("vendor")}
+              className="btn btn-outline btn-sm sm:btn-md"
+            >
+              Vendor Demo
+            </button>
+            <button
+              type="button"
+              onClick={() => demoLogin("admin")}
+              className="btn btn-outline btn-sm sm:btn-md"
+            >
+              Admin Demo
+            </button>
+          </div>
+        </form>
+      </main>
     </>
   );
 };

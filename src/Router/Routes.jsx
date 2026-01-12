@@ -22,7 +22,8 @@ import ManageTikcets from "../Pages/TicketDetails/Dashboard/Admin/ManageTikcets"
 import ManageUsers from "../Pages/TicketDetails/Dashboard/Admin/ManageUsers";
 import AdvertisedTickets from "../Pages/TicketDetails/Dashboard/Admin/AdvertisedTickets";
 import Error from "../Pages/Error";
-
+import About from "../Pages/About/About";
+import Contact from "../Pages/Contact/Contact"
 const route = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +32,14 @@ const route = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "about",
+        Component:About
+      },
+      {
+        path: "contact",
+        Component: Contact
       },
       {
         path: "login",
@@ -43,9 +52,7 @@ const route = createBrowserRouter([
       {
         path: "all-tickets",
         element: (
-          <PrivateRoute>
             <AllTickets />
-          </PrivateRoute>
         ),
       },
       {

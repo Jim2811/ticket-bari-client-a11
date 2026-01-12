@@ -23,13 +23,9 @@ const Register = () => {
 
   const onSubmit = (data) => {
     const { name, email, photoURL, pass } = data;
-
     createUser(email, pass)
-      .then((r) => {
-        return updateProfile(r.user, {
-          displayName: name,
-          photoURL: photoURL,
-        });
+      .then((res) => {
+        return updateProfile(res.user, { displayName: name, photoURL });
       })
       .then(() => {
         const userInfo = {
@@ -37,128 +33,136 @@ const Register = () => {
           email,
           role: "user",
           createdAt: new Date().toISOString(),
-          isFraud: false
+          isFraud: false,
         };
-
         axiosInstance.post("/users", userInfo).then(() => {
           Swal.fire("Success!", "Registration complete", "success");
           reset();
           navigate(from, { replace: true });
         });
       })
-      .catch((err) =>
-        Swal.fire("Error", err.message || "Registration failed!", "error")
-      );
+      .catch((err) => {
+        Swal.fire("Error", err.message || "Registration failed!", "error");
+      });
   };
 
   return (
     <>
       <title>Register - TicketBari</title>
-      <div className="h-full w-11/12 mx-auto flex justify-center py-20 flex-col items-center">
-        <h1 className="lg:text-4xl text-3xl text-primary font-bold mb-6">
-          Register on TicketBari
-        </h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <fieldset className="fieldset bg-base-100 border-base-300 rounded-box w-xs border p-4">
-            <legend className="fieldset-legend">Register</legend>
+      <section className="min-h-screen bg-base-200 flex flex-col justify-center items-center py-12 px-4">
+        <div className="card bg-base-100 border border-base-300 shadow-xl p-8 w-full max-w-sm">
+          <h1 className="text-center font-bold text-3xl md:text-4xl text-primary mb-6">
+            Register on TicketBari
+          </h1>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+            <div>
+              <label className="block text-sm font-semibold text-base-content/80 mb-1">
+                Full Name
+              </label>
+              <input
+                type="text"
+                className="input input-bordered w-full"
+                placeholder="Your Name"
+                {...register("name", { required: "Name is required" })}
+              />
+              {errors.name && (
+                <span className="text-error text-sm">{errors.name.message}</span>
+              )}
+            </div>
 
-            {/* Name */}
-            <label className="label">Name</label>
-            <input
-              type="text"
-              className="input"
-              placeholder="Name"
-              {...register("name", { required: "Name is required" })}
-            />
-            {errors.name && (
-              <span className="text-red-500 text-sm pl-1">
-                {errors.name.message}
-              </span>
-            )}
+            <div>
+              <label className="block text-sm font-semibold text-base-content/80 mb-1">
+                Email
+              </label>
+              <input
+                type="email"
+                className="input input-bordered w-full"
+                placeholder="Your Email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Invalid email address",
+                  },
+                })}
+              />
+              {errors.email && (
+                <span className="text-error text-sm">{errors.email.message}</span>
+              )}
+            </div>
 
-            {/* Email */}
-            <label className="label">Email</label>
-            <input
-              type="email"
-              className="input"
-              placeholder="Email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Invalid email address",
-                },
-              })}
-            />
-            {errors.email && (
-              <span className="text-red-500 text-sm pl-1">
-                {errors.email.message}
-              </span>
-            )}
+            <div>
+              <label className="block text-sm font-semibold text-base-content/80 mb-1">
+                Photo URL
+              </label>
+              <input
+                type="url"
+                className="input input-bordered w-full"
+                placeholder="Profile Photo URL"
+                {...register("photoURL", {
+                  required: "Photo URL is required",
+                  pattern: {
+                    value:
+                      /^(https?:\/\/(?:[\w-]+\.)+[a-z]{2,}(?:\/[\w-./?%&=]*)?)$/i,
+                    message: "Enter a valid URL",
+                  },
+                })}
+              />
+              {errors.photoURL && (
+                <span className="text-error text-sm">
+                  {errors.photoURL.message}
+                </span>
+              )}
+            </div>
 
-            <label className="label">Photo URL</label>
-            <input
-              type="url"
-              className="input"
-              placeholder="Photo URL"
-              {...register("photoURL", {
-                required: "Photo URL is required",
-                pattern: {
-                  value:
-                    /^(https?:\/\/(?:[\w-]+\.)+[a-z]{2,}(?:\/[\w-./?%&=]*)?)$/i,
-                  message: "Enter a valid URL",
-                },
-              })}
-            />
-            {errors.photoURL && (
-              <span className="text-red-500 text-sm pl-1">
-                {errors.photoURL.message}
-              </span>
-            )}
-
-            {/* Password */}
-            <label className="label">Password</label>
-            <input
-              type="password"
-              className="input"
-              placeholder="Password"
-              {...register("pass", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-                validate: {
-                  hasUpper: (value) =>
-                    /[A-Z]/.test(value) ||
-                    "Must contain at least one uppercase letter",
-                  hasLower: (value) =>
-                    /[a-z]/.test(value) ||
-                    "Must contain at least one lowercase letter",
-                },
-              })}
-            />
-            {errors.pass && (
-              <span className="text-red-500 text-sm pl-1">
-                {errors.pass.message}
-              </span>
-            )}
+            <div>
+              <label className="block text-sm font-semibold text-base-content/80 mb-1">
+                Password
+              </label>
+              <input
+                type="password"
+                className="input input-bordered w-full"
+                placeholder="Password"
+                {...register("pass", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                  validate: {
+                    hasUpper: (v) =>
+                      /[A-Z]/.test(v) ||
+                      "Must contain at least one uppercase letter",
+                    hasLower: (v) =>
+                      /[a-z]/.test(v) ||
+                      "Must contain at least one lowercase letter",
+                  },
+                })}
+              />
+              {errors.pass && (
+                <span className="text-error text-sm">{errors.pass.message}</span>
+              )}
+            </div>
 
             <button
-              className="btn btn-primary hover:btn-accent mt-4"
               type="submit"
+              className="btn btn-primary w-full mt-4 normal-case"
             >
               Register
             </button>
 
-            <Link to={"/login"} className="py-2">
-              Already have an Account?{" "}
-              <span className="font-bold text-primary">Login</span>
-            </Link>
-          </fieldset>
-        </form>
-        <GoogleSignIn />
-      </div>
+            <p className="text-center text-sm mt-3">
+              Already have an account?{" "}
+              <Link to="/login" className="text-primary font-semibold">
+                Login
+              </Link>
+            </p>
+
+            <div className="divider my-4">or continue with</div>
+            <GoogleSignIn />
+          </form>
+        </div>
+      </section>
     </>
   );
 };

@@ -11,9 +11,7 @@ import bkash from "../assets/bkash.png";
 const Footer = () => {
   return (
     <footer className="bg-base-200 dark:bg-gray-900 text-base-content border-t border-base-300 transition-colors duration-500">
-      {/* Top Grid */}
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-        {/* ---- Brand ---- */}
         <div>
           <h2 className="text-2xl font-bold text-primary mb-3">TicketBari</h2>
           <p className="text-sm leading-relaxed text-base-content/80">
@@ -21,8 +19,6 @@ const Footer = () => {
             your one‑stop travel booking platform for Bangladesh & beyond.
           </p>
         </div>
-
-        {/* ---- Quick Links ---- */}
         <div>
           <h3 className="text-lg font-semibold mb-4 text-base-content">
             Quick Links
@@ -63,7 +59,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* ---- Contact Info ---- */}
         <div>
           <h3 className="text-lg font-semibold mb-4 text-base-content">
             Contact Info
@@ -95,7 +90,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* ---- Payment Methods ---- */}
         <div>
           <h3 className="text-lg font-semibold mb-4 text-base-content">
             Payment Methods
