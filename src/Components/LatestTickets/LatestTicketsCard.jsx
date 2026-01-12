@@ -22,7 +22,7 @@ const LatestTicketsCard = ({ ticket }) => {
           {ticket.title}
         </h2>
 
-        <div className="badge badge-secondary text-base-content capitalize mt-1">
+        <div className="badge badge-secondary text-black capitalize mt-1">
           {ticket.transportType}
         </div>
 
